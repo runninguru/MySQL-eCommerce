@@ -10,15 +10,14 @@ Includes scripts, functions, and procedures you will need to implement an eComme
 
 ## OK, so what can it do?
 
-This is not designed to support international currency. It is designed for use in the USA (and the US Dollar), but if it will work in a different country/currency, you are free to try it. Remember to follow all local and federal regulations on transactions and record-keeping.
+<ul>
+<li>This is not designed to support international currency. It is designed for use in the USA (and the US Dollar), but if it will work in a different country/currency, you are free to try it. Remember to follow all local and federal regulations on transactions and record-keeping.</li>
+<li>Store & Catalog your entire inventory.</li>
+<li>Stores and automates pricing information on all products in your catalog, including base-price, seasonal pricing, discounts, etc.</li>
+<li>Maintain information on all website users, including account information, credit cards, billing & shipping addresses, contact information, etc.</li>
+<li>No 'group accounts', or in other words, it's designed for one account per person.</li>
+</ul>
 
-Store & Catalog your entire inventory.
-
-Stores and automates pricing information on all products in your catalog, including base-price, seasonal pricing, discounts, etc.
-
-Maintain information on all website users, including account information, credit cards, billing & shipping addresses, contact information, etc.
-
-No 'group accounts', or in other words, it's designed for one account per person.
 
 ## Features I might support in future releases
 
@@ -26,7 +25,41 @@ Support for tax-exempt entities, as well as 'group accounts' or other entities, 
 
 ## Tables
 
-system_user
+<ul>
+<li>system_user
+</li>
+<li>common_lookup>
+</li>
+<li>account
+</li>
+<li>contact
+</li>
+<li>credit_card
+</li>
+<li>transaction
+</li>
+<li>transaction_item
+</li>
+<li>item
+</li>
+<li>telephone
+</li>
+<li>billing_address
+</li>
+<li>shipping_address
+</li>
+<li>state
+</li>
+<li>city
+</li>
+<li>street_address
+</li>
+<li>postal_code
+</li>
+</ul>
+
+
+
 
 
 ## Contributing
@@ -35,22 +68,25 @@ Feel free to contribute!
 
 ### Code Style & Conventions
 
-Capitalize reserved words
+<ul>
 
-Main keywords on new line
+<li>Capitalize reserved words</li>
+<li>Main keywords on new line</li>
+<li>commas before columns</li>
+<li>indent using tab</li>
+<li>Each table has 4 columns used to track data entry:
 
-commas before columns
+<ul>
+<li>created_by</li>
+<li>creation_date</li>
+<li>last_updated_by</li>
+<li>last_update_date</li>
+</ul>
 
-indent using tab
+</li>
 
-Each table has 4 columns used to track data entry:
-
-created_by
-creation_date
-last_updated_by
-last_update_date
-
-It is not designed to be a robust logging or auditing mechanism. Think of it as a development/audit tool used to track the behavior of changes made to the database. The created_by & creation_date columns are populated with data based on the database user
+</ul>
+These columns are not designed to be a robust logging or auditing mechanism. Think of it as a development/audit tool used to track the behavior of changes made to the database. The created_by & creation_date columns are populated with data based on the database user. At the same time, though, permission to edit data in these columns is restricted, and values in these columns are updated/insert with triggers. That way, you can have users INSERT or UPDATE who don't have permission to alter these columns
 
 ## Contributors
 [:arrow_up:\[Back to Top\]](https://github.com/runninguru/MySQL-eCommerce)
