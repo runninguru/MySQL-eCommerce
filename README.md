@@ -26,11 +26,13 @@ Support for tax-exempt entities, as well as 'group accounts' or other entities, 
 ## Tables
 
 <ul>
+
 <li>system_user
 <ul>
 <li>A list of all database users who have permission to access this database.</li>
 </ul>
 </li>
+
 <li>common_lookup
 <ul>
 <li>When a column in any other table in this database is only allowed one of a few specific values, the value in that column is usually a reference to the common_lookup table in the form of a Foreign Key.</li>
@@ -38,91 +40,108 @@ Support for tax-exempt entities, as well as 'group accounts' or other entities, 
 <li>A column name that ends in _type is always a foreign key reference to common_lookup.common_lookup_id</li>
 <li>Example: In the credit_card.credit_card_type column, we can enforce approved values based on rows in the common_lookup table. If your business decides that you will only support Visa, Master Card and Discover Card, then credit_card.credit_card_type will allow only one of 3 references to the common_lookup_table.</li>
 </ul>
-
 </li>
+
 <li>account
 <ul>
-<li></li>
+<li>Used to store essential account information and foreign keys for relational data (contact, credit_card, transaction, and address tables.</li>
 </ul>
-
 </li>
+
 <li>contact
 <ul>
-<li></li>
+<li>Represents all of the contact information for an individual account. Keeping contact and account tables separate will makes it easier to accommodate multi-user accounts in the future.</li>
+<li>For now, there is a 1-to-1 relationship between contact and account.</li>
 </ul>
-
 </li>
+
 <li>credit_card
 <ul>
-<li></li>
+<li>Stores credit card information for each credit card.</li>
+<li>Each account can have 1-to-many credit cards.</li>
 </ul>
-
 </li>
+
 <li>transaction
 <ul>
-<li></li>
+<li>Represents a single transaction. Has a foreign key reference to account. An account may have 1-to-many transactions.</li>
+<li>NOTE: the transaction.transaction_date column may seem redundant in light of the transaction.creation_date column, but that is not true. The transaction.creation_date column is used to track the date each row was created, while transaction.transaction_date tracks the date of the transaction. If the data type of a column in the table needs to be changed, for example, you might transfer the data to a temporary table, drop the table, and re-create the table with the new changes, in which case the value in the transaction.creation_date column will change, but the transaction.transaction_date column will not.</li>
 </ul>
-
 </li>
+
 <li>transaction_item
 <ul>
-<li></li>
+<li>An item that was purchased in a particular transaction.</li>
+<li>Each transaction can have 1-to-many transaction-items.</li>
 </ul>
-
 </li>
+
 <li>item
+<ul>
+<li>A inventory of all products available to be sold.</li>
+</ul>
+</li>
+
+<li>item_category
 <ul>
 <li></li>
 </ul>
-
 </li>
+
+<li>item_subcategory
+<ul>
+<li></li>
+</ul>
+</li>
+
+<li>price
+<ul>
+<li></li>
+</ul>
+</li>
+
 <li>telephone
 <ul>
 <li></li>
 </ul>
-
 </li>
+
 <li>billing_address
 <ul>
 <li></li>
 </ul>
-
 </li>
+
 <li>shipping_address
 <ul>
 <li></li>
 </ul>
-
 </li>
+
 <li>state
 <ul>
 <li></li>
 </ul>
-
 </li>
+
 <li>city
 <ul>
 <li></li>
 </ul>
-
 </li>
+
 <li>street_address
 <ul>
 <li></li>
 </ul>
-
 </li>
+
 <li>postal_code
 <ul>
 <li></li>
 </ul>
-
 </li>
 </ul>
-
-
-
-
 
 ## Contributing
 
