@@ -149,7 +149,7 @@ Feel free to contribute!
 </li>
 
 </ul>
-These columns are not designed to be a robust logging or auditing mechanism. Think of them as a development/audit tool used to track the <i>most recent</i> changes made to each row in a table. The created_by & creation_date columns are populated with data based on the database user. At the same time, though, permission to edit data in these columns is restricted, and values in these columns are updated/inserted with triggers. That way, when a db user commits an INSERT or UPDATE, a trigger automatically populates these four columns with the appropriate information.  
+These columns are not designed to be a robust logging or auditing mechanism. Think of them as a development/audit tool used to track the <i>most recent</i> changes made to each row in a table. The created_by & last_upated_by columns are populated with data based on the current database user. At the same time, though, permission to edit data in these columns is restricted, and values in these columns are updated/inserted with triggers. That way, when a db user commits an INSERT or UPDATE, a trigger automatically populates these four columns with the appropriate information.  
 
 ## Contributors
 [:arrow_up:\[Back to Top\]](https://github.com/runninguru/MySQL-eCommerce)
