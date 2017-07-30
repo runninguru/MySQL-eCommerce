@@ -84,7 +84,8 @@ Support for tax-exempt entities, as well as 'group accounts' or other entities, 
 
 <li>item_category
 <ul>
-<li></li>
+<li>Determines the category of any given item in the database inventory.</li>
+<li>There is a one-to-one relationship between an item and its item_category</li>
 </ul>
 </li>
 
@@ -96,13 +97,7 @@ Support for tax-exempt entities, as well as 'group accounts' or other entities, 
 
 <li>price
 <ul>
-<li></li>
-</ul>
-</li>
-
-<li>telephone
-<ul>
-<li></li>
+<li>Store price information, including base price, sale prices, custom price duration, discounts, etc.</li>
 </ul>
 </li>
 
