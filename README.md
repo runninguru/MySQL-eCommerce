@@ -168,4 +168,4 @@ You can report the bugs at the [issue tracker](https://github.com/runninguru/MyS
 ## License
 [:arrow_up:\[Back to Top\]](https://github.com/runninguru/MySQL-eCommerce)
 
-Kyle Birch([@amarlearning](http://github.com/amarlearning)) under [MIT License](https://choosealicense.com/licenses/mit/) 
+Kyle Birch([@twitter](http://github.com/amarlearning)) under [MIT License](https://choosealicense.com/licenses/mit/) 
