@@ -27,34 +27,96 @@ Support for tax-exempt entities, as well as 'group accounts' or other entities, 
 
 <ul>
 <li>system_user
+<ul>
+<li>A list of all database users who have permission to access this database.</li>
+</ul>
 </li>
-<li>common_lookup>
+<li>common_lookup
+<ul>
+<li>When a column in any other table in this database is only allowed one of a few specific values, the value in that column is usually a reference to the common_lookup table in the form of a Foreign Key.</li>
+<li>The most common use-case of the common_lookup table is to enforce business logic.</li>
+<li>A column name that ends in _type is always a foreign key reference to common_lookup.common_lookup_id</li>
+<li>Example: In the credit_card.credit_card_type column, we can enforce approved values based on rows in the common_lookup table. If your business decides that you will only support Visa, Master Card and Discover Card, then credit_card.credit_card_type will allow only one of 3 references to the common_lookup_table.</li>
+</ul>
+
 </li>
 <li>account
+<ul>
+<li></li>
+</ul>
+
 </li>
 <li>contact
+<ul>
+<li></li>
+</ul>
+
 </li>
 <li>credit_card
+<ul>
+<li></li>
+</ul>
+
 </li>
 <li>transaction
+<ul>
+<li></li>
+</ul>
+
 </li>
 <li>transaction_item
+<ul>
+<li></li>
+</ul>
+
 </li>
 <li>item
+<ul>
+<li></li>
+</ul>
+
 </li>
 <li>telephone
+<ul>
+<li></li>
+</ul>
+
 </li>
 <li>billing_address
+<ul>
+<li></li>
+</ul>
+
 </li>
 <li>shipping_address
+<ul>
+<li></li>
+</ul>
+
 </li>
 <li>state
+<ul>
+<li></li>
+</ul>
+
 </li>
 <li>city
+<ul>
+<li></li>
+</ul>
+
 </li>
 <li>street_address
+<ul>
+<li></li>
+</ul>
+
 </li>
 <li>postal_code
+<ul>
+<li></li>
+</ul>
+
 </li>
 </ul>
 
@@ -69,11 +131,12 @@ Feel free to contribute!
 ### Code Style & Conventions
 
 <ul>
-
-<li>Capitalize reserved words</li>
-<li>Main keywords on new line</li>
-<li>commas before columns</li>
-<li>indent using tab</li>
+<li>Each Primary Key index starts at 1001. This way, each table has 1000 rows you can experiment with when debugging, altering database designs, etc.</li>
+<li>A column whose name ends in '_type' shall be a foreign key reference to common_lookup.common_lookup_id.</li>
+<li>Capitalize reserved words.</li>
+<li>Main keywords on new line.</li>
+<li>commas before columns.</li>
+<li>indent using tab.</li>
 <li>Each table has 4 columns used to track data entry:
 
 <ul>
@@ -86,7 +149,7 @@ Feel free to contribute!
 </li>
 
 </ul>
-These columns are not designed to be a robust logging or auditing mechanism. Think of them as a development/audit tool used to track the most recent changes made to each row in a table. The created_by & creation_date columns are populated with data based on the database user. At the same time, though, permission to edit data in these columns is restricted, and values in these columns are updated/insert with triggers. That way, you can have users INSERT or UPDATE who don't have permission to alter these columns
+These columns are not designed to be a robust logging or auditing mechanism. Think of them as a development/audit tool used to track the <i>most recent</i> changes made to each row in a table. The created_by & creation_date columns are populated with data based on the database user. At the same time, though, permission to edit data in these columns is restricted, and values in these columns are updated/inserted with triggers. That way, when a db user commits an INSERT or UPDATE, a trigger automatically populates these four columns with the appropriate information.  
 
 ## Contributors
 [:arrow_up:\[Back to Top\]](https://github.com/runninguru/MySQL-eCommerce)
