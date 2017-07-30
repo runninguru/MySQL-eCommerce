@@ -24,11 +24,16 @@ No 'group accounts', or in other words, it's designed for one account per person
 
 Support for tax-exempt entities, as well as 'group accounts' or other entities, rather than just 'individual accounts'.
 
+## Tables
+
+system_user
+
+
 ## Contributing
 
 Feel free to contribute!
 
-### Code Style
+### Code Style & Conventions
 
 Capitalize reserved words
 
@@ -37,6 +42,15 @@ Main keywords on new line
 commas before columns
 
 indent using tab
+
+Each table has 4 columns used to track data entry:
+
+created_by
+creation_date
+last_updated_by
+last_update_date
+
+It is not designed to be a robust logging or auditing mechanism. Think of it as a development/audit tool used to track the behavior of changes made to the database. The created_by & creation_date columns are populated with data based on the database user
 
 ## Contributors
 [:arrow_up:\[Back to Top\]](https://github.com/runninguru/MySQL-eCommerce)
