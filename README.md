@@ -117,6 +117,7 @@ Support for tax-exempt entities, as well as 'group accounts' or other entities, 
 <li>price
 <ul>
 <li>Store price information, including base price, sale prices, custom price duration, discounts, etc.</li>
+<li>Capable of storing price information based on a time-frame, so you don't need to manually edit the price the day a special price goes live (or ends).</li>
 </ul>
 </li>
 
@@ -143,12 +144,14 @@ Support for tax-exempt entities, as well as 'group accounts' or other entities, 
 <li>state
 <ul>
 <li>A lookup table that defines the state for addresses.</li>
+<li>If you want to create a version of this database which supports any country other than the USA, you will need to alter this. </li>
 </ul>
 </li>
 
 <li>city
 <ul>
 <li>A lookup table that defines the city for addresses.</li>
+<li>If you want to create a version of this database which supports any country other than the USA, you will need to alter this. </li>
 </ul>
 </li>
 
