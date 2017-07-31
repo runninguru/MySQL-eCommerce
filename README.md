@@ -11,7 +11,7 @@ Includes scripts, functions, and procedures you will need to implement an eComme
 ## OK, so what can it do?
 
 <ul>
-<li>This is not designed to support international currency. It is designed for use in the USA (and the US Dollar), but if it will work in a different country/currency, you are free to try it. Remember to follow all local and federal regulations on transactions and record-keeping.</li>
+<li>This is not designed to support international currency. It is designed for use in the USA (and the US Dollar), but if you can get it to work in a different country/currency, you are free to create a fork of this project. Remember to follow all local and federal regulations on transactions and record-keeping.</li>
 <li>Store & Catalog your entire inventory.</li>
 <li>Stores and automates pricing information on all products in your catalog, including base-price, seasonal pricing, discounts, etc.</li>
 <li>Maintain information on all website users, including account information, credit cards, billing & shipping addresses, contact information, etc.</li>
