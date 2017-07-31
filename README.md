@@ -33,6 +33,12 @@ Support for tax-exempt entities, as well as 'group accounts' or other entities, 
 </ul>
 </li>
 
+<li>system_user_type
+<ul>
+<li>A lookup table that determines the type of database user.</li>
+</ul>
+</li>
+
 <li>account
 <ul>
 <li>Used to store essential account information and foreign keys for relational data (contact, credit_card, transaction, and address tables.</li>
@@ -141,16 +147,16 @@ Support for tax-exempt entities, as well as 'group accounts' or other entities, 
 </ul>
 </li>
 
-<li>state
+<li>city
 <ul>
-<li>A lookup table that defines the state for addresses.</li>
+<li>A lookup table that defines the city for addresses.</li>
 <li>If you want to create a version of this database which supports any country other than the USA, you will need to alter this. </li>
 </ul>
 </li>
 
-<li>city
+<li>state
 <ul>
-<li>A lookup table that defines the city for addresses.</li>
+<li>A lookup table that defines the state for addresses.</li>
 <li>If you want to create a version of this database which supports any country other than the USA, you will need to alter this. </li>
 </ul>
 </li>
