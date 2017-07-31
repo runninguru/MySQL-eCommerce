@@ -1,0 +1,135 @@
+database design prototype
+
+system_user
+	system_user_id 			pk					NOT NULL
+	system_user_name 							NOT NULL
+	system_user_type 							NOT NULL
+	first_name
+	middle_name
+	last_name
+common_lookup
+account
+	account_id				pk					NOT NULL
+	account_type  			
+		administrator
+		business
+		individual
+	account_number 								NOT NULL
+	password									NOT NULL
+	created_by	 			fk(common_lookup) 	NOT NULL
+	creation_date 								NOT NULL
+	last_updated_by	 		fk(common_lookup) 	NOT NULL
+	last_update_date 							NOT NULL
+contact
+	contact_id				pk					NOT NULL
+	account_id 				fk(account) 		NOT NULL
+	contact_type 			fk(common_lookup) 	NOT NULL
+		?
+		?
+	email 										NOT NULL
+	first_name 									NOT NULL
+	middle_name 								
+	last_name									NOT NULL
+	company_name								
+	created_by				fk(common_lookup) 	NOT NULL
+	creation_date 								NOT NULL
+	last_updated_by			fk(common_lookup) 	NOT NULL
+	last_update_date		 					NOT NULL
+credit_card
+	credit_card_id			pk 					NOT NULL
+	account_id 				fk(account) 		NOT NULL
+	contact_id 				fk(contact) 		NOT NULL
+	credit_card_number 							NOT NULL
+	credit_card_type		fk(common_lookup) 	NOT NULL
+		discover card
+		master card
+		visa
+	created_by				fk(common_lookup) 	NOT NULL
+	creation_date 								NOT NULL
+	last_updated_by			fk(common_lookup) 	NOT NULL
+	last_update_date		 					NOT NULL
+transaction
+	transaction_id 			pk 					NOT NULL
+	transaction_account 	?					?
+	transaction_type 		fk(common_lookup) 	NOT NULL
+	transaction_date 							NOT NULL
+	transaction_amount 							NOT NULL
+	payment_method_type		fk(common_lookup) 	NOT NULL
+	payment_account_number 	? 					?
+	created_by				fk(common_lookup) 	NOT NULL
+	creation_date 								NOT NULL
+	last_updated_by			fk(common_lookup) 	NOT NULL
+	last_update_date							NOT NULL
+transaction_item
+	transaction_item_id 	pk 					NOT NULL
+	transaction_id 			fk(transaction) 	NOT NULL
+	created_by				fk(common_lookup) 	NOT NULL
+	creation_date 								NOT NULL
+	last_updated_by			fk(common_lookup) 	NOT NULL
+	last_update_date							NOT NULL
+item
+	item_id 				pk 					NOT NULL
+	item_type				fk(common_lookup)	NOT NULL
+		dvd
+		vhs
+		(these are temporary)
+	item_title 									NOT NULL
+	item_subtitle								
+	created_by				fk(common_lookup)	NOT NULL
+	creation_date								NOT NULL
+	last_updated_by			fk(common_lookup) 	NOT NULL
+	last_update_date							NOT NULL
+telephone
+	telephone_id			pk					NOT NULL
+	contact_id 				fk(contact)	   		NOT NULL
+	address_id 				fk(address) 		NOT NULL
+	telephone_type			fk(common_lookup) 	NOT NULL
+		mobile
+		landline
+billing_address
+	billing_address_id		pk 					NOT NULL
+	account_id				fk(account) 		NOT NULL
+	state_province_id		fk(state_province) 	NOT NULL
+	postal_code_id			fk(postal_code) 	NOT NULL
+	created_by				fk(common_lookup) 	NOT NULL
+	creation_date 								NOT NULL
+	last_updated_by			fk(common_lookup) 	NOT NULL
+	last_update_date							NOT NULL
+shipping_address
+	shipping_address_id		pk 					NOT NULL
+	account_id 				fk(account) 		NOT NULL
+	state_province_id 		fk(state_province) 	NOT NULL
+	postal_code_id 			fk(postal_code) 	NOT NULL
+	created_by				fk(common_lookup) 	NOT NULL
+	creation_date 								NOT NULL
+	last_updated_by			fk(common_lookup) 	NOT NULL
+	last_update_date		 					NOT NULL
+state_province
+	state_province_id		pk 					NOT NULL
+	state_province 								NOT NULL
+	created_by				fk(common_lookup) 	NOT NULL
+	creation_date 								NOT NULL
+	last_updated_by			fk(common_lookup) 	NOT NULL
+	last_update_date		 					NOT NULL
+city
+	city_id 				pk 					NOT NULL
+	city										NOT NULL	
+	created_by				fk(common_lookup) 	NOT NULL
+	creation_date 								NOT NULL
+	last_updated_by			fk(common_lookup) 	NOT NULL
+	last_update_date							NOT NULL
+street_address
+	street_address_id 		pk 					NOT NULL
+	street_address 								NOT NULL
+	created_by				fk(common_lookup) 	NOT NULL
+	creation_date 								NOT NULL
+	last_updated_by			fk(common_lookup) 	NOT NULL
+	last_update_date							NOT NULL
+postal_code
+	postal_code_id 			pk					NOT NULL
+	postal_code 								NOT NULL
+	created_by				fk(common_lookup) 	NOT NULL
+	creation_date 								NOT NULL
+	last_updated_by			fk(common_lookup) 	NOT NULL
+	last_update_date		 					NOT NULL
+

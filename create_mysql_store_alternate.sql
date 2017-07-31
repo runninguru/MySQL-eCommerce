@@ -38,6 +38,9 @@ CREATE TABLE system_user
 , CONSTRAINT system_user_fk3 FOREIGN KEY (last_updated_by) REFERENCES system_user (system_user_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+ALTER TABLE system_user AUTO_INCREMENT = 1001;
+
+
 -- Conditionally drop objects.
 SELECT 'SYSTEM_USER_TYPE' AS "Drop Table";
 DROP TABLE IF EXISTS system_user_type;
@@ -54,6 +57,9 @@ CREATE TABLE system_user_type
 , KEY system_user_type_fk2 (last_updated_by)
 , CONSTRAINT system_user_type_fk2 FOREIGN KEY (last_updated_by) REFERENCES system_user (system_user_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+ALTER TABLE system_user_type AUTO_INCREMENT = 1001;
+
 
 -- first insert into system_user_type, then insert into system_user
 
@@ -118,6 +124,9 @@ CREATE TABLE account
 , CONSTRAINT account_fk3 FOREIGN KEY (last_updated_by) REFERENCES system_user (system_user_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+ALTER TABLE account AUTO_INCREMENT = 1001;
+
+
 -- Conditionally drop objects.
 SELECT 'account_type' AS "Drop Table";
 DROP TABLE IF EXISTS account_type;
@@ -136,6 +145,9 @@ CREATE TABLE account_type
 , KEY account_fk2 (last_updated_by)
 , CONSTRAINT account_fk2 FOREIGN KEY (last_updated_by) REFERENCES system_user (system_user_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+ALTER TABLE account_type AUTO_INCREMENT = 1001;
+
 
 -- create default account types
 INSERT INTO account_type
@@ -190,6 +202,9 @@ CREATE TABLE contact
 , CONSTRAINT contact_fk5 FOREIGN KEY (last_updated_by) REFERENCES system_user (system_user_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+ALTER TABLE contact AUTO_INCREMENT = 1001;
+
+
 -- Conditionally drop objects.
 SELECT 'contact_type' AS "Drop Table";
 DROP TABLE IF EXISTS contact_type;
@@ -208,6 +223,9 @@ CREATE TABLE contact_type
 , KEY contact_type_fk2 (last_updated_by)
 , CONSTRAINT contact_type_fk2 FOREIGN KEY (last_updated_by) REFERENCES system_user (system_user_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+ALTER TABLE contact_type AUTO_INCREMENT = 1001;
+
 
 -- Conditionally drop objects.
 SELECT 'telephone' AS "Drop Table";
@@ -231,6 +249,9 @@ CREATE TABLE telephone
 , CONSTRAINT telephone_fk3 FOREIGN KEY (last_updated_by) REFERENCES system_user (system_user_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+ALTER TABLE telephone AUTO_INCREMENT = 1001;
+
+
 -- Conditionally drop objects.
 SELECT 'telephone_type' AS "Drop Table";
 DROP TABLE IF EXISTS telephone_type;
@@ -248,7 +269,10 @@ CREATE TABLE telephone_type
 , CONSTRAINT telephone_type_fk1 FOREIGN KEY (created_by) REFERENCES system_user (system_user_id)
 , KEY telephone_type_fk2 (last_updated_by)
 , CONSTRAINT telephone_type_fk2 FOREIGN KEY (last_updated_by) REFERENCES system_user (system_user_id)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+ALTER TABLE telephone_type AUTO_INCREMENT = 1001;
+
 
 -- Conditionally drop objects.
 SELECT 'credit_card' AS "Drop Table";
@@ -277,6 +301,9 @@ CREATE TABLE credit_card
 , CONSTRAINT credit_card_fk4 FOREIGN KEY (last_updated_by) REFERENCES system_user (system_user_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+ALTER TABLE credit_card AUTO_INCREMENT = 1001;
+
+
 -- Conditionally drop objects.
 SELECT 'credit_card_type' AS "Drop Table";
 DROP TABLE IF EXISTS credit_card_type;
@@ -295,6 +322,8 @@ CREATE TABLE credit_card_type
 , KEY credit_card_type_fk2 (last_updated_by)
 , CONSTRAINT credit_card_type_fk2 FOREIGN KEY (last_updated_by) REFERENCES system_user (system_user_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+ALTER TABLE credit_card_type AUTO_INCREMENT = 1001;
 
 -- create address table
 -- create address_type table
