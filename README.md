@@ -33,18 +33,16 @@ Support for tax-exempt entities, as well as 'group accounts' or other entities, 
 </ul>
 </li>
 
-<li>common_lookup
-<ul>
-<li>When a column in any other table in this database is only allowed one of a few specific values, the value in that column is usually a reference to the common_lookup table in the form of a Foreign Key.</li>
-<li>The most common use-case of the common_lookup table is to enforce business logic.</li>
-<li>A column name that ends in _type is always a foreign key reference to common_lookup.common_lookup_id</li>
-<li>Example: In the credit_card.credit_card_type column, we can enforce approved values based on rows in the common_lookup table. If your business decides that you will only support Visa, Master Card and Discover Card, then credit_card.credit_card_type will allow only one of 3 references to the common_lookup_table.</li>
-</ul>
-</li>
-
 <li>account
 <ul>
 <li>Used to store essential account information and foreign keys for relational data (contact, credit_card, transaction, and address tables.</li>
+</ul>
+</li>
+
+<li>account_type
+<ul>
+<li>A lookup table that determines the type of account.</li>
+<li>A common example may be for you to store both customer and admin accounts in this database, and as a result, a foreign key reference to this table is used to indicate the type of account.</li>
 </ul>
 </li>
 
@@ -55,6 +53,13 @@ Support for tax-exempt entities, as well as 'group accounts' or other entities, 
 </ul>
 </li>
 
+<li>contact_type
+<ul>
+<li>A lookup table that determines the type of contact. This may not be necessary. It might be depricated for future versions, although This might be necessary in order to fully implement multi-user accounts.</li>
+</ul>
+</li>
+
+
 <li>credit_card
 <ul>
 <li>Stores credit card information for each credit card.</li>
@@ -62,10 +67,23 @@ Support for tax-exempt entities, as well as 'group accounts' or other entities, 
 </ul>
 </li>
 
+<li>credit_card_type
+<ul>
+<li>A lookup table that determines the type of credit card, such as Visa, MasterCard, DiscoverCard, etc.</li>
+</ul>
+</li>
+
 <li>transaction
 <ul>
 <li>Represents a single transaction. Has a foreign key reference to account. An account may have 1-to-many transactions.</li>
 <li>NOTE: the transaction.transaction_date column may seem redundant in light of the transaction.creation_date column, but that is not true. The transaction.creation_date column is used to track the date each row was created, while transaction.transaction_date tracks the date of the transaction. If the data type of a column in the table needs to be changed, for example, you might transfer the data to a temporary table, drop the table, and re-create the table with the new changes, in which case the value in the transaction.creation_date column will change, but the transaction.transaction_date column will not.</li>
+</ul>
+</li>
+
+<li>transaction_type
+<ul>
+<li>A lookup table that determines the type of transaction.</li>
+<li>This table may be depricated in the future. I'm including it as a prospective member, but i'm not sure it is necessary.</li>
 </ul>
 </li>
 
@@ -91,7 +109,8 @@ Support for tax-exempt entities, as well as 'group accounts' or other entities, 
 
 <li>item_subcategory
 <ul>
-<li></li>
+<li>Same as item_category, just to define categories underneath categories in item_category.</li>
+<li>There can be 1-to-many subcategories(in item_subcategory) per each category(in item_category).</li>
 </ul>
 </li>
 
@@ -101,39 +120,41 @@ Support for tax-exempt entities, as well as 'group accounts' or other entities, 
 </ul>
 </li>
 
-<li>billing_address
+<li>price_type
 <ul>
-<li></li>
+<li>A lookup table that determines the type of price.</li>
+<li>Common examples include base price, seasonal discount price, holiday price, etc.</li>
+</ul>
+
+</li>
+<li>address
+<ul>
+<li>Stores address information associated with accounts.</li>
+<li>A user may have 1-to-many addresses per account.</li>
 </ul>
 </li>
 
-<li>shipping_address
+<li>address_type
 <ul>
-<li></li>
+<li>A lookup table that defines the type of address. In this case, an address can either be a billing address or shipping address.</li>
 </ul>
 </li>
 
 <li>state
 <ul>
-<li></li>
+<li>A lookup table that defines the state for addresses.</li>
 </ul>
 </li>
 
 <li>city
 <ul>
-<li></li>
-</ul>
-</li>
-
-<li>street_address
-<ul>
-<li></li>
+<li>A lookup table that defines the city for addresses.</li>
 </ul>
 </li>
 
 <li>postal_code
 <ul>
-<li></li>
+<li>A lookup table that defines the postal code for addresses.</li>
 </ul>
 </li>
 </ul>
