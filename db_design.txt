@@ -85,81 +85,12 @@ credit_card_type
 	creation_date 								NOT NULL
 	last_updated_by			fk(system_user) 	NOT NULL
 	last_update_date		 					NOT NULL
-transaction
-	transaction_id 			pk 					NOT NULL
-	transaction_account 	fk(account)			NOT NULL
-	transaction_type 		fk(transaction_type)NOT NULL
-	transaction_date 							NOT NULL
-	transaction_amount 							NOT NULL
-	payment_account_number 	? 					?
-	created_by				fk(system_user) 	NOT NULL
-	creation_date 								NOT NULL
-	last_updated_by			fk(system_user) 	NOT NULL
-	last_update_date							NOT NULL
-transaction_type
-	transaction_type_id		pk					NOT NULL
-	transaction_type 							NOT NULL
-	created_by				fk(system_user) 	NOT NULL
-	creation_date 								NOT NULL
-	last_updated_by			fk(system_user) 	NOT NULL
-	last_update_date		 					NOT NULL
-transaction_item
-	transaction_item_id 	pk 					NOT NULL
-	transaction_id 			fk(transaction) 	NOT NULL
-	created_by				fk(system_user) 	NOT NULL
-	creation_date 								NOT NULL
-	last_updated_by			fk(system_user) 	NOT NULL
-	last_update_date							NOT NULL
-item
-	item_id 				pk 					NOT NULL
-	item_category 			fk(category)		NOT NULL
-	item_subcategory 		fk(subcategory) 	NOT NULL
-	item_title 									NOT NULL
-	item_subtitle								
-	created_by				fk(system_user)		NOT NULL
-	creation_date								NOT NULL
-	last_updated_by			fk(system_user) 	NOT NULL
-	last_update_date							NOT NULL
-item_category
-	category_id 			pk					NOT NULL
-	category 									NOT NULL
-	created_by	 			fk(system_user) 	NOT NULL
-	creation_date 								NOT NULL
-	last_updated_by	 		fk(system_user) 	NOT NULL
-	last_update_date 							NOT NULL
-item_subcategory
-	subcategory_id 			pk					NOT NULL
-	category_id 			fk(category)		NOT NULL
-	subcategory 								NOT NULL
-	created_by	 			fk(system_user) 	NOT NULL
-	creation_date 								NOT NULL
-	last_updated_by	 		fk(system_user) 	NOT NULL
-	last_update_date 							NOT NULL
-price
-	price_id 				pk					NOT NULL
-	item_id 				fk(item) 			NOT NULL
-	price_type				fk(price_type)	 	NOT NULL
-	active_flag 								NOT NULL
-	start_date									NOT NULL
-	end_date
-	amount 										NOT NULL
-	created_by				fk(system_user)	NOT NULL
-	creation_date								NOT NULL
-	last_updated_by			fk(system_user) 	NOT NULL
-	last_update_date							NOT NULL
-price_type
-	price_type_id			pk					NOT NULL
-	price_type 									NOT NULL
-	created_by				fk(system_user) 	NOT NULL
-	creation_date 								NOT NULL
-	last_updated_by			fk(system_user) 	NOT NULL
-	last_update_date		 					NOT NULL
 address
 	address_id				pk 					NOT NULL
 	address_type			fk(address_type)	NOT NULL
 	account_id				fk(account) 		NOT NULL
 	street_address 								NOT NULL
-	state_id 				fk(state)		 	NOT NULL
+	city_state_id 			fk(city_state)		NOT NULL
 	postal_code_id			fk(postal_code) 	NOT NULL
 	created_by				fk(system_user) 	NOT NULL
 	creation_date 								NOT NULL
@@ -186,9 +117,87 @@ state
 	creation_date 								NOT NULL
 	last_updated_by			fk(system_user) 	NOT NULL
 	last_update_date		 					NOT NULL
+city_state
+	city_state_id 			pk					NOT NULL
+	city 					fk(city) 			NOT NULL
+	state 					fk(state) 			NOT NULL
+	created_by				fk(system_user) 	NOT NULL
+	creation_date 								NOT NULL
+	last_updated_by			fk(system_user) 	NOT NULL
+	last_update_date		 					NOT NULL
 postal_code
 	postal_code_id 			pk					NOT NULL
 	postal_code 								NOT NULL
+	created_by				fk(system_user) 	NOT NULL
+	creation_date 								NOT NULL
+	last_updated_by			fk(system_user) 	NOT NULL
+	last_update_date		 					NOT NULL
+item
+	item_id 				pk 					NOT NULL
+	item_title 									NOT NULL
+	item_subtitle 
+	item_category 			fk(category)		NOT NULL
+	item_subcategory 		fk(subcategory) 	NOT NULL
+	created_by				fk(system_user)		NOT NULL
+	creation_date								NOT NULL
+	last_updated_by			fk(system_user) 	NOT NULL
+	last_update_date							NOT NULL
+item_category
+	category_id 			pk					NOT NULL
+	category 									NOT NULL
+	created_by	 			fk(system_user) 	NOT NULL
+	creation_date 								NOT NULL
+	last_updated_by	 		fk(system_user) 	NOT NULL
+	last_update_date 							NOT NULL
+item_subcategory
+	subcategory_id 			pk					NOT NULL
+	category_id 			fk(category)		NOT NULL
+	subcategory 								NOT NULL
+	created_by	 			fk(system_user) 	NOT NULL
+	creation_date 								NOT NULL
+	last_updated_by	 		fk(system_user) 	NOT NULL
+	last_update_date 							NOT NULL
+transaction
+	transaction_id 			pk 					NOT NULL
+	transaction_account 	fk(account)			NOT NULL
+	transaction_type 		fk(transaction_type)NOT NULL
+	transaction_date 							NOT NULL
+	transaction_amount 							NOT NULL
+	payment_account_number 	? 					?
+	created_by				fk(system_user) 	NOT NULL
+	creation_date 								NOT NULL
+	last_updated_by			fk(system_user) 	NOT NULL
+	last_update_date							NOT NULL
+transaction_type
+	transaction_type_id		pk					NOT NULL
+	transaction_type 							NOT NULL
+	created_by				fk(system_user) 	NOT NULL
+	creation_date 								NOT NULL
+	last_updated_by			fk(system_user) 	NOT NULL
+	last_update_date		 					NOT NULL
+transaction_item
+	transaction_item_id 	pk 					NOT NULL
+	transaction_id 			fk(transaction) 	NOT NULL
+	item_id 				fk(item) 			NOT NULL
+	created_by				fk(system_user) 	NOT NULL
+	creation_date 								NOT NULL
+	last_updated_by			fk(system_user) 	NOT NULL
+	last_update_date							NOT NULL
+price
+	price_id 				pk					NOT NULL
+	item_id 				fk(item) 			NOT NULL
+	price_type				fk(price_type)	 	NOT NULL
+	active_flag 								NOT NULL
+	start_date									NOT NULL
+	end_date
+	amount 										NOT NULL
+	created_by				fk(system_user)	NOT NULL
+	creation_date								NOT NULL
+	last_updated_by			fk(system_user) 	NOT NULL
+	last_update_date							NOT NULL
+price_type
+	price_type_id			pk					NOT NULL
+	price_type 									NOT NULL
 	created_by				fk(system_user) 	NOT NULL
 	creation_date 								NOT NULL
 	last_updated_by			fk(system_user) 	NOT NULL

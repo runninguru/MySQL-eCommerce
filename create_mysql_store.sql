@@ -325,15 +325,231 @@ CREATE TABLE credit_card_type
 ALTER TABLE credit_card_type AUTO_INCREMENT = 1001;
 
 -- create address table
+-- Conditionally drop objects.
+SELECT 'address' AS "Drop Table";
+DROP TABLE IF EXISTS address;
+
+SELECT 'address' AS 'create table';
+
+CREATE TABLE address
+( address_id		 			INT UNSIGNED PRIMARY KEY AUTO_INCREMENT
+, address_type	 				INT UNSIGNED
+, account_id 					INT UNSIGNED	NOT NULL
+, street_address 				CHAR(50) 		NOT NULL
+, city_state_id 				INT UNSIGNED 	NOT NULL
+, postal_code_id 				INT UNSIGNED 	NOT NULL
+, created_by                  	INT UNSIGNED 	NOT NULL
+, creation_date               	DATE         	NOT NULL
+, last_updated_by             	INT UNSIGNED 	NOT NULL
+, last_update_date            	DATE         	NOT NULL
+, KEY address_fk1
+, CONSTRAINT address_fk1 FOREIGN KEY (address_type) REFERENCES address_type (address_type_id)
+, KEY address_fk2
+, CONSTRAINT address_fk2 FOREIGN KEY (account_id) REFERENCES account (account_id)
+, KEY address_fk3
+, CONSTRAINT address_fk3 FOREIGN KEY (city_state_id) REFERENCES city_state (city_state_id)
+, KEY address_fk4
+, CONSTRAINT address_fk4 FOREIGN KEY (postal_code_id) REFERENCES postal_code (postal_code_id)
+, KEY address_fk5
+, CONSTRAINT address_fk5 FOREIGN KEY (created_by) REFERENCES system_user (system_user_id)
+, KEY address_fk6 (last_updated_by)
+, CONSTRAINT address_fk6 FOREIGN KEY (last_updated_by) REFERENCES system_user (system_user_id)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+ALTER TABLE address AUTO_INCREMENT = 1001;
 
 -- create address_type table
+-- Conditionally drop objects.
+SELECT 'address_type' AS "Drop Table";
+DROP TABLE IF EXISTS address_type;
+
+SELECT 'address_type' AS 'create table';
+
+CREATE TABLE address_type
+( address_type_id	 			INT UNSIGNED PRIMARY KEY AUTO_INCREMENT
+, address_type 					INT UNSIGNED
+, created_by                  	INT UNSIGNED 	NOT NULL
+, creation_date               	DATE         	NOT NULL
+, last_updated_by             	INT UNSIGNED 	NOT NULL
+, last_update_date            	DATE         	NOT NULL
+, KEY address_type_fk1
+, CONSTRAINT address_type_fk1 FOREIGN KEY (created_by) REFERENCES system_user (system_user_id)
+, KEY address_type_fk2 (last_updated_by)
+, CONSTRAINT address_type_fk2 FOREIGN KEY (last_updated_by) REFERENCES system_user (system_user_id)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+ALTER TABLE address_type AUTO_INCREMENT = 1001;
+
 -- create city table
+-- Conditionally drop objects.
+SELECT 'city' AS "Drop Table";
+DROP TABLE IF EXISTS city;
+
+SELECT 'city' AS 'create table';
+
+CREATE TABLE city
+( city_id 						INT UNSIGNED 	PRIMARY KEY AUTO_INCREMENT
+, city 							INT UNSIGNED
+, created_by                  	INT UNSIGNED 	NOT NULL
+, creation_date               	DATE         	NOT NULL
+, last_updated_by             	INT UNSIGNED 	NOT NULL
+, last_update_date            	DATE         	NOT NULL
+, KEY city_fk1
+, CONSTRAINT city_fk1 FOREIGN KEY (created_by) REFERENCES system_user (system_user_id)
+, KEY city_fk2 (last_updated_by)
+, CONSTRAINT city_fk2 FOREIGN KEY (last_updated_by) REFERENCES system_user (system_user_id)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+ALTER TABLE city AUTO_INCREMENT = 1001;
+
 -- create state table
+-- Conditionally drop objects.
+SELECT 'state' AS "Drop Table";
+DROP TABLE IF EXISTS state;
+
+SELECT 'state' AS 'create table';
+
+CREATE TABLE state
+( state_id 						INT UNSIGNED PRIMARY KEY AUTO_INCREMENT
+, state 						INT UNSIGNED
+, created_by                  	INT UNSIGNED 	NOT NULL
+, creation_date               	DATE         	NOT NULL
+, last_updated_by             	INT UNSIGNED 	NOT NULL
+, last_update_date            	DATE         	NOT NULL
+, KEY state_fk1
+, CONSTRAINT state_fk1 FOREIGN KEY (created_by) REFERENCES system_user (system_user_id)
+, KEY state_fk2 (last_updated_by)
+, CONSTRAINT state_fk2 FOREIGN KEY (last_updated_by) REFERENCES system_user (system_user_id)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+ALTER TABLE state AUTO_INCREMENT = 1001;
+
+-- create city_state table
+-- Conditionally drop objects.
+SELECT 'city_state' AS "Drop Table";
+DROP TABLE IF EXISTS city_state;
+
+SELECT 'city_state' AS 'create table';
+
+CREATE TABLE city_state
+( city_state_id 				INT UNSIGNED 	PRIMARY KEY AUTO_INCREMENT
+, city_id 						INT UNSIGNED 	NOT NULL
+, state_id 						INT UNSIGNED 	NOT NULL
+, created_by                  	INT UNSIGNED 	NOT NULL
+, creation_date               	DATE         	NOT NULL
+, last_updated_by             	INT UNSIGNED 	NOT NULL
+, last_update_date            	DATE         	NOT NULL
+, KEY city_state_fk1
+, CONSTRAINT city_state_fk1 FOREIGN KEY (city_id) REFERENCES city (city_id)
+, KEY city_state_fk2
+, CONSTRAINT city_state_fk2 FOREIGN KEY (state_id) REFERENCES state (state_id)
+, KEY state_fk3
+, CONSTRAINT state_fk3 FOREIGN KEY (created_by) REFERENCES system_user (system_user_id)
+, KEY state_fk4 (last_updated_by)
+, CONSTRAINT state_fk4 FOREIGN KEY (last_updated_by) REFERENCES system_user (system_user_id)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+ALTER TABLE city_state AUTO_INCREMENT = 1001;
+
 -- create postal_code table
+SELECT 'postal_code' AS 'Drop Table';
+DROP TABLE IF EXISTS postal_code;
+
+SELECT 'postal_code' AS 'create table';
+
+CREATE TABLE postal_code
+( postal_code_id 				INT UNSIGNED 	PRIMARY KEY AUTO_INCREMENT
+, postal_code 					INT UNSIGNED 	NOT NULL
+, created_by                  	INT UNSIGNED 	NOT NULL
+, creation_date               	DATE         	NOT NULL
+, last_updated_by             	INT UNSIGNED 	NOT NULL
+, last_update_date            	DATE         	NOT NULL
+, KEY postal_code_fk1
+, CONSTRAINT postal_code_fk1 FOREIGN KEY (created_by) REFERENCES system_user (system_user_id)
+, KEY postal_code_fk2 (last_updated_by)
+, CONSTRAINT postal_code_fk2 FOREIGN KEY (last_updated_by) REFERENCES system_user (system_user_id)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+ALTER TABLE postal_code AUTO_INCREMENT = 1001;
+
+
 -- create item table
+SELECT 'item' AS 'Drop Table';
+DROP TABLE IF EXISTS item;
+
+SELECT 'item' AS 'create table';
+
+CREATE TABLE item
+( item_id 						INT UNSIGNED PRIMARY KEY AUTO_INCREMENT
+, item_title 					CHAR(255) 		NOT NULL
+, item_subtitle 				CHAR(255) 
+, item_category_id 				INT UNSIGNED	NOT NULL
+, item_subcategory_id 			INT UNSIGNED 	NOT NULL
+, created_by                  	INT UNSIGNED 	NOT NULL
+, creation_date               	DATE         	NOT NULL
+, last_updated_by             	INT UNSIGNED 	NOT NULL
+, last_update_date            	DATE         	NOT NULL
+, KEY item_fk1
+, CONSTRAINT item_fk1 FOREIGN KEY (item_category_id) REFERENCES item_category (item_category_id)
+, KEY item_fk2
+, CONSTRAINT item_fk2 FOREIGN KEY (item_subcategory_id) REFERENCES item_category (item_subcategory_id)
+, KEY item_fk3
+, CONSTRAINT item_fk3 FOREIGN KEY (created_by) REFERENCES system_user (system_user_id)
+, KEY item_fk4 (last_updated_by)
+, CONSTRAINT item_fk4 FOREIGN KEY (last_updated_by) REFERENCES system_user (system_user_id)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+ALTER TABLE item AUTO_INCREMENT = 1001;
+
+
 -- create item_category table
+SELECT 'item_category' AS 'Drop Table';
+DROP TABLE IF EXISTS item_category;
+
+SELECT 'item_category' AS 'create table';
+
+CREATE TABLE item_category
+( item_category_id 				INT UNSIGNED PRIMARY KEY AUTO_INCREMENT
+, item_category 				CHAR(50)		NOT NULL
+, created_by                  	INT UNSIGNED 	NOT NULL
+, creation_date               	DATE         	NOT NULL
+, last_updated_by             	INT UNSIGNED 	NOT NULL
+, last_update_date            	DATE         	NOT NULL
+, KEY item_category_fk1
+, CONSTRAINT item_category_fk1 FOREIGN KEY (created_by) REFERENCES system_user (system_user_id)
+, KEY item_category_fk2 (last_updated_by)
+, CONSTRAINT item_category_fk2 FOREIGN KEY (last_updated_by) REFERENCES system_user (system_user_id)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+ALTER TABLE item_category AUTO_INCREMENT = 1001;
+
 -- create item_subcategory table
+
+SELECT 'item_subcategory' AS 'Drop Table';
+DROP TABLE IF EXISTS item_subcategory;
+
+SELECT 'item_subcategory' AS 'create table';
+
+CREATE TABLE item_subcategory
+( item_subcategory_id 			INT UNSIGNED PRIMARY KEY AUTO_INCREMENT
+, category_id 					INT UNSIGNED 	NOT NULL
+, item_subcategory 				CHAR(50)		NOT NULL
+, created_by                  	INT UNSIGNED 	NOT NULL
+, creation_date               	DATE         	NOT NULL
+, last_updated_by             	INT UNSIGNED 	NOT NULL
+, last_update_date            	DATE         	NOT NULL
+, KEY item_subcategory_fk1
+, CONSTRAINT item_subcategory_fk1 FOREIGN KEY (category_id) REFERENCES item_category (item_category_id)
+, KEY item_subcategory_fk2
+, CONSTRAINT item_subcategory_fk2 FOREIGN KEY (created_by) REFERENCES system_user (system_user_id)
+, KEY item_subcategory_fk3 (last_updated_by)
+, CONSTRAINT item_subcategory_fk3 FOREIGN KEY (last_updated_by) REFERENCES system_user (system_user_id)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+ALTER TABLE item_subcategory AUTO_INCREMENT = 1001;
+
 -- Create transaction Table
+-- Create transaction_type table
 -- create transaction_item table
 -- create price table
 -- create price_type table
