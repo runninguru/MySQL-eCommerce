@@ -2,7 +2,6 @@
 --  Program Name:   create_mysql_store_ri.sql
 --  Creation Date:  March-2017
 -- --------------------------------------------------------------------------------
-
 -- Open log file.
 TEE create_mysql_store.txt
 
@@ -326,6 +325,7 @@ CREATE TABLE credit_card_type
 ALTER TABLE credit_card_type AUTO_INCREMENT = 1001;
 
 -- create address table
+
 -- create address_type table
 -- create city table
 -- create state table
