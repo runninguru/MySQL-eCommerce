@@ -192,9 +192,9 @@ CREATE TABLE contact
 , KEY contact_fk1 (account_id)
 , CONSTRAINT contact_fk1 FOREIGN KEY (account_id) REFERENCES account (account_id)
 , KEY contact_fk2 (contact_type)
-, CONSTRAINT contact_fk2 FOREIGN KEY (contact_type) REFERENCES contact_type (contact_type)
+, CONSTRAINT contact_fk2 FOREIGN KEY (contact_type) REFERENCES contact_type (contact_type_id)
 , KEY contact_fk3 (telephone_id)
-, CONSTRAINT contact_fk3 FOREIGN KEY (contact_type) REFERENCES telephone (telephone_id)
+, CONSTRAINT contact_fk3 FOREIGN KEY (telephone_id) REFERENCES telephone (telephone_id)
 , KEY contact_fk4 (created_by)
 , CONSTRAINT contact_fk4 FOREIGN KEY (created_by) REFERENCES system_user (system_user_id)
 , KEY contact_fk5 (last_updated_by)
@@ -217,7 +217,7 @@ CREATE TABLE contact_type
 , creation_date               	DATE         NOT NULL
 , last_updated_by             	INT UNSIGNED NOT NULL
 , last_update_date            	DATE         NOT NULL
-, KEY contact_type_fk1
+, KEY contact_type_fk1 (created_by)
 , CONSTRAINT contact_type_fk1 FOREIGN KEY (created_by) REFERENCES system_user (system_user_id)
 , KEY contact_type_fk2 (last_updated_by)
 , CONSTRAINT contact_type_fk2 FOREIGN KEY (last_updated_by) REFERENCES system_user (system_user_id)
@@ -240,9 +240,9 @@ CREATE TABLE telephone
 , creation_date               	DATE         	NOT NULL
 , last_updated_by             	INT UNSIGNED 	NOT NULL
 , last_update_date            	DATE         	NOT NULL
-, KEY telephone_fk1
+, KEY telephone_fk1 (telephone_type)
 , CONSTRAINT telephone_fk1 FOREIGN KEY (telephone_type) REFERENCES telephone_type (telephone_type_id)
-, KEY telephone_fk2
+, KEY telephone_fk2 (created_by)
 , CONSTRAINT telephone_fk2 FOREIGN KEY (created_by) REFERENCES system_user (system_user_id)
 , KEY telephone_fk3 (last_updated_by)
 , CONSTRAINT telephone_fk3 FOREIGN KEY (last_updated_by) REFERENCES system_user (system_user_id)
@@ -264,7 +264,7 @@ CREATE TABLE telephone_type
 , creation_date               	DATE         	NOT NULL
 , last_updated_by             	INT UNSIGNED 	NOT NULL
 , last_update_date            	DATE         	NOT NULL
-, KEY telephone_type_fk1
+, KEY telephone_type_fk1 (created_by)
 , CONSTRAINT telephone_type_fk1 FOREIGN KEY (created_by) REFERENCES system_user (system_user_id)
 , KEY telephone_type_fk2 (last_updated_by)
 , CONSTRAINT telephone_type_fk2 FOREIGN KEY (last_updated_by) REFERENCES system_user (system_user_id)
@@ -290,11 +290,11 @@ CREATE TABLE credit_card
 , creation_date               	DATE         	NOT NULL
 , last_updated_by             	INT UNSIGNED 	NOT NULL
 , last_update_date            	DATE         	NOT NULL
-, KEY credit_card_fk1
+, KEY credit_card_fk1 (account_id)
 , CONSTRAINT credit_card_fk1 FOREIGN KEY (account_id) REFERENCES account (account_id)
-, KEY credit_card_fk2
+, KEY credit_card_fk2 (credit_card_type)
 , CONSTRAINT credit_card_fk2 FOREIGN KEY (credit_card_type) REFERENCES credit_card_type (credit_card_type_id)
-, KEY credit_card_fk3
+, KEY credit_card_fk3 (created_by)
 , CONSTRAINT credit_card_fk3 FOREIGN KEY (created_by) REFERENCES system_user (system_user_id)
 , KEY credit_card_fk4 (last_updated_by)
 , CONSTRAINT credit_card_fk4 FOREIGN KEY (last_updated_by) REFERENCES system_user (system_user_id)
@@ -316,7 +316,7 @@ CREATE TABLE credit_card_type
 , creation_date               	DATE         	NOT NULL
 , last_updated_by             	INT UNSIGNED 	NOT NULL
 , last_update_date            	DATE         	NOT NULL
-, KEY credit_card_type_fk1
+, KEY credit_card_type_fk1 (created_by)
 , CONSTRAINT credit_card_type_fk1 FOREIGN KEY (created_by) REFERENCES system_user (system_user_id)
 , KEY credit_card_type_fk2 (last_updated_by)
 , CONSTRAINT credit_card_type_fk2 FOREIGN KEY (last_updated_by) REFERENCES system_user (system_user_id)
@@ -342,15 +342,15 @@ CREATE TABLE address
 , creation_date               	DATE         	NOT NULL
 , last_updated_by             	INT UNSIGNED 	NOT NULL
 , last_update_date            	DATE         	NOT NULL
-, KEY address_fk1
+, KEY address_fk1 (address_type)
 , CONSTRAINT address_fk1 FOREIGN KEY (address_type) REFERENCES address_type (address_type_id)
-, KEY address_fk2
+, KEY address_fk2 (account_id)
 , CONSTRAINT address_fk2 FOREIGN KEY (account_id) REFERENCES account (account_id)
-, KEY address_fk3
+, KEY address_fk3 (city_state_id)
 , CONSTRAINT address_fk3 FOREIGN KEY (city_state_id) REFERENCES city_state (city_state_id)
-, KEY address_fk4
+, KEY address_fk4 (postal_code_id)
 , CONSTRAINT address_fk4 FOREIGN KEY (postal_code_id) REFERENCES postal_code (postal_code_id)
-, KEY address_fk5
+, KEY address_fk5 (created_by)
 , CONSTRAINT address_fk5 FOREIGN KEY (created_by) REFERENCES system_user (system_user_id)
 , KEY address_fk6 (last_updated_by)
 , CONSTRAINT address_fk6 FOREIGN KEY (last_updated_by) REFERENCES system_user (system_user_id)
@@ -372,7 +372,7 @@ CREATE TABLE address_type
 , creation_date               	DATE         	NOT NULL
 , last_updated_by             	INT UNSIGNED 	NOT NULL
 , last_update_date            	DATE         	NOT NULL
-, KEY address_type_fk1
+, KEY address_type_fk1 (created_by)
 , CONSTRAINT address_type_fk1 FOREIGN KEY (created_by) REFERENCES system_user (system_user_id)
 , KEY address_type_fk2 (last_updated_by)
 , CONSTRAINT address_type_fk2 FOREIGN KEY (last_updated_by) REFERENCES system_user (system_user_id)
@@ -394,7 +394,7 @@ CREATE TABLE city
 , creation_date               	DATE         	NOT NULL
 , last_updated_by             	INT UNSIGNED 	NOT NULL
 , last_update_date            	DATE         	NOT NULL
-, KEY city_fk1
+, KEY city_fk1 (created_by)
 , CONSTRAINT city_fk1 FOREIGN KEY (created_by) REFERENCES system_user (system_user_id)
 , KEY city_fk2 (last_updated_by)
 , CONSTRAINT city_fk2 FOREIGN KEY (last_updated_by) REFERENCES system_user (system_user_id)
@@ -416,7 +416,7 @@ CREATE TABLE state
 , creation_date               	DATE         	NOT NULL
 , last_updated_by             	INT UNSIGNED 	NOT NULL
 , last_update_date            	DATE         	NOT NULL
-, KEY state_fk1
+, KEY state_fk1 (created_by)
 , CONSTRAINT state_fk1 FOREIGN KEY (created_by) REFERENCES system_user (system_user_id)
 , KEY state_fk2 (last_updated_by)
 , CONSTRAINT state_fk2 FOREIGN KEY (last_updated_by) REFERENCES system_user (system_user_id)
@@ -439,11 +439,11 @@ CREATE TABLE city_state
 , creation_date               	DATE         	NOT NULL
 , last_updated_by             	INT UNSIGNED 	NOT NULL
 , last_update_date            	DATE         	NOT NULL
-, KEY city_state_fk1
+, KEY city_state_fk1 (city_id)
 , CONSTRAINT city_state_fk1 FOREIGN KEY (city_id) REFERENCES city (city_id)
-, KEY city_state_fk2
+, KEY city_state_fk2 (state_id)
 , CONSTRAINT city_state_fk2 FOREIGN KEY (state_id) REFERENCES state (state_id)
-, KEY city_state_fk3
+, KEY city_state_fk3 (created_by)
 , CONSTRAINT city_state_fk3 FOREIGN KEY (created_by) REFERENCES system_user (system_user_id)
 , KEY city_state_fk4 (last_updated_by)
 , CONSTRAINT city_state_fk4 FOREIGN KEY (last_updated_by) REFERENCES system_user (system_user_id)
@@ -464,7 +464,7 @@ CREATE TABLE postal_code
 , creation_date               	DATE         	NOT NULL
 , last_updated_by             	INT UNSIGNED 	NOT NULL
 , last_update_date            	DATE         	NOT NULL
-, KEY postal_code_fk1
+, KEY postal_code_fk1 (created_by)
 , CONSTRAINT postal_code_fk1 FOREIGN KEY (created_by) REFERENCES system_user (system_user_id)
 , KEY postal_code_fk2 (last_updated_by)
 , CONSTRAINT postal_code_fk2 FOREIGN KEY (last_updated_by) REFERENCES system_user (system_user_id)
@@ -489,11 +489,11 @@ CREATE TABLE item
 , creation_date               	DATE         	NOT NULL
 , last_updated_by             	INT UNSIGNED 	NOT NULL
 , last_update_date            	DATE         	NOT NULL
-, KEY item_fk1
+, KEY item_fk1 (item_category_id)
 , CONSTRAINT item_fk1 FOREIGN KEY (item_category_id) REFERENCES item_category (item_category_id)
-, KEY item_fk2
+, KEY item_fk2 (item_subcategory_id)
 , CONSTRAINT item_fk2 FOREIGN KEY (item_subcategory_id) REFERENCES item_category (item_subcategory_id)
-, KEY item_fk3
+, KEY item_fk3 (created_by)
 , CONSTRAINT item_fk3 FOREIGN KEY (created_by) REFERENCES system_user (system_user_id)
 , KEY item_fk4 (last_updated_by)
 , CONSTRAINT item_fk4 FOREIGN KEY (last_updated_by) REFERENCES system_user (system_user_id)
@@ -515,7 +515,7 @@ CREATE TABLE item_category
 , creation_date               	DATE         	NOT NULL
 , last_updated_by             	INT UNSIGNED 	NOT NULL
 , last_update_date            	DATE         	NOT NULL
-, KEY item_category_fk1
+, KEY item_category_fk1 (created_by)
 , CONSTRAINT item_category_fk1 FOREIGN KEY (created_by) REFERENCES system_user (system_user_id)
 , KEY item_category_fk2 (last_updated_by)
 , CONSTRAINT item_category_fk2 FOREIGN KEY (last_updated_by) REFERENCES system_user (system_user_id)
@@ -538,9 +538,9 @@ CREATE TABLE item_subcategory
 , creation_date               	DATE         	NOT NULL
 , last_updated_by             	INT UNSIGNED 	NOT NULL
 , last_update_date            	DATE         	NOT NULL
-, KEY item_subcategory_fk1
+, KEY item_subcategory_fk1 (category_id)
 , CONSTRAINT item_subcategory_fk1 FOREIGN KEY (category_id) REFERENCES item_category (item_category_id)
-, KEY item_subcategory_fk2
+, KEY item_subcategory_fk2 (created_by)
 , CONSTRAINT item_subcategory_fk2 FOREIGN KEY (created_by) REFERENCES system_user (system_user_id)
 , KEY item_subcategory_fk3 (last_updated_by)
 , CONSTRAINT item_subcategory_fk3 FOREIGN KEY (last_updated_by) REFERENCES system_user (system_user_id)
@@ -564,11 +564,11 @@ CREATE TABLE transaction
 , creation_date               	DATE         	NOT NULL
 , last_updated_by             	INT UNSIGNED 	NOT NULL
 , last_update_date            	DATE         	NOT NULL
-, KEY transaction_fk1
+, KEY transaction_fk1 (account_id)
 , CONSTRAINT transaction_fk1 FOREIGN KEY (account_id) REFERENCES account (account_id)
-, KEY transaction_fk2
+, KEY transaction_fk2 (transaction_type)
 , CONSTRAINT transaction_fk2 FOREIGN KEY (transaction_type) REFERENCES transaction_type (transaction_type_id)
-, KEY transaction_fk3
+, KEY transaction_fk3 (created_by)
 , CONSTRAINT transaction_fk3 FOREIGN KEY (created_by) REFERENCES system_user (system_user_id)
 , KEY transaction_fk4 (last_updated_by)
 , CONSTRAINT transaction_fk4 FOREIGN KEY (last_updated_by) REFERENCES system_user (system_user_id)
@@ -590,7 +590,7 @@ CREATE TABLE transaction_type
 , creation_date               	DATE         	NOT NULL
 , last_updated_by             	INT UNSIGNED 	NOT NULL
 , last_update_date            	DATE         	NOT NULL
-, KEY transaction_type_fk1
+, KEY transaction_type_fk1 (created_by)
 , CONSTRAINT transaction_type_fk1 FOREIGN KEY (created_by) REFERENCES system_user (system_user_id)
 , KEY transaction_type_fk2 (last_updated_by)
 , CONSTRAINT transaction_type_fk2 FOREIGN KEY (last_updated_by) REFERENCES system_user (system_user_id)
@@ -613,11 +613,11 @@ CREATE TABLE transaction_item
 , creation_date               	DATE         	NOT NULL
 , last_updated_by             	INT UNSIGNED 	NOT NULL
 , last_update_date            	DATE         	NOT NULL
-, KEY transaction_item_fk1
+, KEY transaction_item_fk1 (transaction_id)
 , CONSTRAINT transaction_item_fk1 FOREIGN KEY (transaction_id) REFERENCES transaction (transaction_id)
-, KEY transaction_item_fk2
+, KEY transaction_item_fk2 (item_id)
 , CONSTRAINT transaction_item_fk2 FOREIGN KEY (item_id) REFERENCES item (item_id)
-, KEY transaction_item_fk3
+, KEY transaction_item_fk3 (created_by)
 , CONSTRAINT transaction_item_fk3 FOREIGN KEY (created_by) REFERENCES system_user (system_user_id)
 , KEY transaction_item_fk4 (last_updated_by)
 , CONSTRAINT transaction_item_fk4 FOREIGN KEY (last_updated_by) REFERENCES system_user (system_user_id)
@@ -644,17 +644,17 @@ CREATE TABLE price
 , creation_date               	DATE         	NOT NULL
 , last_updated_by             	INT UNSIGNED 	NOT NULL
 , last_update_date            	DATE         	NOT NULL
-, KEY price_fk1
+, KEY price_fk1 (item_id)
 , CONSTRAINT price_fk1 FOREIGN KEY (item_id) REFERENCES item (item_id)
-, KEY price_fk2
+, KEY price_fk2 (price_type)
 , CONSTRAINT price_fk2 FOREIGN KEY (price_type) REFERENCES price_type (price_type_id)
-, KEY price_fk3
+, KEY price_fk3 (created_by)
 , CONSTRAINT price_fk3 FOREIGN KEY (created_by) REFERENCES system_user (system_user_id)
 , KEY price_fk4 (last_updated_by)
 , CONSTRAINT price_fk4 FOREIGN KEY (last_updated_by) REFERENCES system_user (system_user_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-ALTER TABLE transaction_item AUTO_INCREMENT = 1001;
+ALTER TABLE price AUTO_INCREMENT = 1001;
 
 
 -- create price_type table
@@ -670,7 +670,7 @@ CREATE TABLE price_type
 , creation_date               	DATE         	NOT NULL
 , last_updated_by             	INT UNSIGNED 	NOT NULL
 , last_update_date            	DATE         	NOT NULL
-, KEY price_type_fk1
+, KEY price_type_fk1 (created_by)
 , CONSTRAINT price_type_fk1 FOREIGN KEY (created_by) REFERENCES system_user (system_user_id)
 , KEY price_type_fk2 (last_updated_by)
 , CONSTRAINT price_type_fk2 FOREIGN KEY (last_updated_by) REFERENCES system_user (system_user_id)
