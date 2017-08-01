@@ -311,7 +311,7 @@ SELECT 'credit_card_type' AS 'create table';
 
 CREATE TABLE credit_card_type
 ( credit_card_type_id 			INT UNSIGNED PRIMARY KEY AUTO_INCREMENT
-, credit_card_type 				INT UNSIGNED
+, credit_card_type 				INT UNSIGNED	NOT NULL
 , created_by                  	INT UNSIGNED 	NOT NULL
 , creation_date               	DATE         	NOT NULL
 , last_updated_by             	INT UNSIGNED 	NOT NULL
@@ -443,10 +443,10 @@ CREATE TABLE city_state
 , CONSTRAINT city_state_fk1 FOREIGN KEY (city_id) REFERENCES city (city_id)
 , KEY city_state_fk2
 , CONSTRAINT city_state_fk2 FOREIGN KEY (state_id) REFERENCES state (state_id)
-, KEY state_fk3
-, CONSTRAINT state_fk3 FOREIGN KEY (created_by) REFERENCES system_user (system_user_id)
-, KEY state_fk4 (last_updated_by)
-, CONSTRAINT state_fk4 FOREIGN KEY (last_updated_by) REFERENCES system_user (system_user_id)
+, KEY city_state_fk3
+, CONSTRAINT city_state_fk3 FOREIGN KEY (created_by) REFERENCES system_user (system_user_id)
+, KEY city_state_fk4 (last_updated_by)
+, CONSTRAINT city_state_fk4 FOREIGN KEY (last_updated_by) REFERENCES system_user (system_user_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 ALTER TABLE city_state AUTO_INCREMENT = 1001;
@@ -549,11 +549,134 @@ CREATE TABLE item_subcategory
 ALTER TABLE item_subcategory AUTO_INCREMENT = 1001;
 
 -- Create transaction Table
--- Create transaction_type table
--- create transaction_item table
--- create price table
--- create price_type table
+SELECT 'transaction' AS 'drop Table';
+DROP TABLE IF EXISTS transaction;
 
+SELECT 'transaction' AS 'create table';
+
+CREATE TABLE transaction
+( transaction_id 				INT UNSIGNED PRIMARY KEY AUTO_INCREMENT
+, account_id 					INT UNSIGNED 	NOT NULL
+, transaction_type 				INT UNSIGNED	NOT NULL
+, transaction_date 				DATE 			NOT NULL
+, amount 						INT UNSIGNED 	NOT NULL
+, created_by                  	INT UNSIGNED 	NOT NULL
+, creation_date               	DATE         	NOT NULL
+, last_updated_by             	INT UNSIGNED 	NOT NULL
+, last_update_date            	DATE         	NOT NULL
+, KEY transaction_fk1
+, CONSTRAINT transaction_fk1 FOREIGN KEY (account_id) REFERENCES account (account_id)
+, KEY transaction_fk2
+, CONSTRAINT transaction_fk2 FOREIGN KEY (transaction_type) REFERENCES transaction_type (transaction_type_id)
+, KEY transaction_fk3
+, CONSTRAINT transaction_fk3 FOREIGN KEY (created_by) REFERENCES system_user (system_user_id)
+, KEY transaction_fk4 (last_updated_by)
+, CONSTRAINT transaction_fk4 FOREIGN KEY (last_updated_by) REFERENCES system_user (system_user_id)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+ALTER TABLE transaction AUTO_INCREMENT = 1001;
+
+
+-- Create transaction_type table
+SELECT 'transaction_type' AS 'drop table';
+DROP TABLE IF EXISTS transaction_type;
+
+SELECT 'transaction_type' AS 'create table';
+
+CREATE TABLE transaction_type
+( transaction_type_id 			INT UNSIGNED 	PRIMARY KEY AUTO_INCREMENT
+, transaction_type 				CHAR(50) 		NOT NULL
+, created_by 					INT UNSIGNED	NOT NULL
+, creation_date               	DATE         	NOT NULL
+, last_updated_by             	INT UNSIGNED 	NOT NULL
+, last_update_date            	DATE         	NOT NULL
+, KEY transaction_type_fk1
+, CONSTRAINT transaction_type_fk1 FOREIGN KEY (created_by) REFERENCES system_user (system_user_id)
+, KEY transaction_type_fk2 (last_updated_by)
+, CONSTRAINT transaction_type_fk2 FOREIGN KEY (last_updated_by) REFERENCES system_user (system_user_id)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+ALTER TABLE transaction_type AUTO_INCREMENT = 1001;
+
+
+-- create transaction_item table
+SELECT 'transaction_item' AS 'drop table';
+DROP TABLE IF EXISTS transaction_item;
+
+SELECT 'transaction_item' AS 'create table';
+
+CREATE TABLE transaction_item
+( transaction_item_id 			INT UNSIGNED 	PRIMARY KEY AUTO_INCREMENT
+, transaction_id 				CHAR(50) 		NOT NULL
+, item_id 						INT UNSIGNED 	NOT NULL
+, created_by 					INT UNSIGNED	NOT NULL
+, creation_date               	DATE         	NOT NULL
+, last_updated_by             	INT UNSIGNED 	NOT NULL
+, last_update_date            	DATE         	NOT NULL
+, KEY transaction_item_fk1
+, CONSTRAINT transaction_item_fk1 FOREIGN KEY (transaction_id) REFERENCES transaction (transaction_id)
+, KEY transaction_item_fk2
+, CONSTRAINT transaction_item_fk2 FOREIGN KEY (item_id) REFERENCES item (item_id)
+, KEY transaction_item_fk3
+, CONSTRAINT transaction_item_fk3 FOREIGN KEY (created_by) REFERENCES system_user (system_user_id)
+, KEY transaction_item_fk4 (last_updated_by)
+, CONSTRAINT transaction_item_fk4 FOREIGN KEY (last_updated_by) REFERENCES system_user (system_user_id)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+ALTER TABLE transaction_item AUTO_INCREMENT = 1001;
+
+
+-- create price table
+SELECT 'price' AS 'drop table';
+DROP TABLE IF EXISTS price;
+
+SELECT 'price' AS 'create table';
+
+CREATE TABLE price
+( price_id 						INT UNSIGNED 	PRIMARY KEY AUTO_INCREMENT
+, item_id 						CHAR(50) 		NOT NULL
+, price_type 					INT UNSIGNED 	NOT NULL
+, active_flag 					text 			NOT NULL
+, start_date 					DATE 			NOT NULL
+, end_date 						DATE
+, amount 						INT UNSIGNED 	NOT NULL
+, created_by 					INT UNSIGNED	NOT NULL
+, creation_date               	DATE         	NOT NULL
+, last_updated_by             	INT UNSIGNED 	NOT NULL
+, last_update_date            	DATE         	NOT NULL
+, KEY price_fk1
+, CONSTRAINT price_fk1 FOREIGN KEY (item_id) REFERENCES item (item_id)
+, KEY price_fk2
+, CONSTRAINT price_fk2 FOREIGN KEY (price_type) REFERENCES price_type (price_type_id)
+, KEY price_fk3
+, CONSTRAINT price_fk3 FOREIGN KEY (created_by) REFERENCES system_user (system_user_id)
+, KEY price_fk4 (last_updated_by)
+, CONSTRAINT price_fk4 FOREIGN KEY (last_updated_by) REFERENCES system_user (system_user_id)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+ALTER TABLE transaction_item AUTO_INCREMENT = 1001;
+
+
+-- create price_type table
+SELECT 'price_type' AS 'drop table';
+DROP TABLE IF EXISTS price_type;
+
+SELECT 'price_type' AS 'create table';
+
+CREATE TABLE price_type
+( price_type_id 				INT UNSIGNED 	PRIMARY KEY AUTO_INCREMENT
+, price_type 					CHAR(50) 		NOT NULL
+, created_by                  	INT UNSIGNED 	NOT NULL
+, creation_date               	DATE         	NOT NULL
+, last_updated_by             	INT UNSIGNED 	NOT NULL
+, last_update_date            	DATE         	NOT NULL
+, KEY price_type_fk1
+, CONSTRAINT price_type_fk1 FOREIGN KEY (created_by) REFERENCES system_user (system_user_id)
+, KEY price_type_fk2 (last_updated_by)
+, CONSTRAINT price_type_fk2 FOREIGN KEY (last_updated_by) REFERENCES system_user (system_user_id)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+ALTER TABLE price_type AUTO_INCREMENT = 1001;
 -- Commit inserts.
 COMMIT;
 

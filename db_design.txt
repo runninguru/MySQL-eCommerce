@@ -159,11 +159,10 @@ item_subcategory
 	last_update_date 							NOT NULL
 transaction
 	transaction_id 			pk 					NOT NULL
-	transaction_account 	fk(account)			NOT NULL
+	account_id 			 	fk(account)			NOT NULL
 	transaction_type 		fk(transaction_type)NOT NULL
 	transaction_date 							NOT NULL
-	transaction_amount 							NOT NULL
-	payment_account_number 	? 					?
+	amount			 							NOT NULL
 	created_by				fk(system_user) 	NOT NULL
 	creation_date 								NOT NULL
 	last_updated_by			fk(system_user) 	NOT NULL
