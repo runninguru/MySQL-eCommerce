@@ -11,12 +11,12 @@ Includes scripts, functions, and procedures you will need to implement an eComme
 ## OK, so what can it do?
 
 <ul>
-<li>Store & Catalog your entire inventory.</li>
+<li>Catalog your entire inventory.</li>
 <li>Stores and automates pricing information on all products in your catalog, including base-price, seasonal pricing, discounts, etc.</li>
 <li>Maintain information on all website users, including account information, credit cards, billing & shipping addresses, contact information, etc.</li>
-<li>This is not designed to support international currency. It is designed for use in the USA (and the US Dollar), but if you can get it to work in a different country/currency, you are free to create a fork of this project. Remember to follow all local and federal regulations on transactions and record-keeping.</li>
+<li>This db is only designed for use in the USA (and the US Dollar). This is not designed to support international currency or international law. If you want to get it to work in a different country/currency, you are free to create a fork of this project. Remember to follow all appropriate regulations and laws on transactions and record-keeping.</li>
 <li>No 'group accounts', or in other words, it's designed for one account per person.</li>
-<li>Not currently designed to keep track of inventory or stock currently available.</li>
+<li>Not currently designed for full inventory management: i.e., inventory levels, sales, orders, and deliveries. It currently tracks which products are available as well as each transaction the product is purchased in.</li>
 </ul>
 
 
@@ -34,6 +34,7 @@ as you can notice, any table ending in '_type' is a lookup table used to ensure 
 <li>system_user
 <ul>
 <li>A list of all database users who have permission to access this database.</li>
+<li>This table is NOT updated automatically to reflect the current database user list, so your DBA must keep this table updated.</li>
 </ul>
 </li>
 
@@ -154,14 +155,14 @@ as you can notice, any table ending in '_type' is a lookup table used to ensure 
 <li>city
 <ul>
 <li>A lookup table that defines the city for addresses.</li>
-<li>If you want to create a version of this database which supports any country other than the USA, you will need to alter this. </li>
+<li>If you want to create a version of this database which supports any country other than the USA, you will need to fork this project. </li>
 </ul>
 </li>
 
 <li>state
 <ul>
 <li>A lookup table that defines the state for addresses.</li>
-<li>If you want to create a version of this database which supports any country other than the USA, you will need to alter this. </li>
+<li>If you want to create a version of this database which supports any country other than the USA, you will need to fork this project. </li>
 </ul>
 </li>
 
@@ -180,9 +181,8 @@ Feel free to contribute!
 
 <ul>
 <li>Each Primary Key index starts at 1001. This way, each table has 1000 rows you can experiment with when debugging, altering database designs, etc.</li>
-<li>A column whose name ends in '_type' shall be a foreign key reference to common_lookup.common_lookup_id.</li>
+<li>A column whose name ends in '_type' shall be a foreign key reference to the lookup table with the same name.</li>
 <li>Capitalize reserved words.</li>
-<li>Main keywords on new line.</li>
 <li>commas before columns.</li>
 <li>indent using tab.</li>
 <li>Each table has 4 columns used to track data entry:
@@ -197,7 +197,7 @@ Feel free to contribute!
 </li>
 
 </ul>
-These columns are not designed to be a robust logging or auditing mechanism. Think of them as a development/audit tool used to track the <i>most recent</i> changes made to each row in a table. The created_by & last_upated_by columns are populated with data based on the current database user. At the same time, though, permission to edit data in these columns is restricted, and values in these columns are updated/inserted with triggers. That way, when a db user commits an INSERT or UPDATE, a trigger automatically populates these four columns with the appropriate information.  
+These columns are not designed to be a robust logging mechanism. Think of them as a development/audit tool used to track the <i>most recent</i> changes made to each row in a table. The created_by & last_upated_by columns are populated with data based on the current database user. At the same time, though, permission to edit data in these columns is restricted, and values in these columns are updated/inserted with triggers. That way, when a db user commits an INSERT or UPDATE, a trigger automatically populates these four columns with the appropriate information.  
 
 ## Contributors
 [:arrow_up:\[Back to Top\]](https://github.com/runninguru/MySQL-eCommerce)
