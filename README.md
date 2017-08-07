@@ -11,22 +11,26 @@ Includes scripts, functions, and procedures you will need to implement an eComme
 ## OK, so what can it do?
 
 <ul>
-<li>This is not designed to support international currency. It is designed for use in the USA (and the US Dollar), but if you can get it to work in a different country/currency, you are free to create a fork of this project. Remember to follow all local and federal regulations on transactions and record-keeping.</li>
 <li>Store & Catalog your entire inventory.</li>
 <li>Stores and automates pricing information on all products in your catalog, including base-price, seasonal pricing, discounts, etc.</li>
 <li>Maintain information on all website users, including account information, credit cards, billing & shipping addresses, contact information, etc.</li>
+<li>This is not designed to support international currency. It is designed for use in the USA (and the US Dollar), but if you can get it to work in a different country/currency, you are free to create a fork of this project. Remember to follow all local and federal regulations on transactions and record-keeping.</li>
 <li>No 'group accounts', or in other words, it's designed for one account per person.</li>
+<li>Not currently designed to keep track of inventory or stock currently available.</li>
 </ul>
 
 
-## Features I might support in future releases
-
-Support for tax-exempt entities, as well as 'group accounts' or other entities, rather than just 'individual accounts'.
-
-## Tables
+## Features I want to support in future releases
 
 <ul>
+<li>Fully integrated Inventory Management tracking, including inventory levels, orders, sales, and deliveries.</li>
+<li>Support for tax-exempt entities, as well as 'group accounts' or other entities, rather than just 'individual accounts'.</li>
+</ul>
 
+## Tables
+as you can notice, any table ending in '_type' is a lookup table used to ensure valid input into the associated foreign-key-constrained column. Also, 'city', 'state', and 'postal_code' are lookup tables.
+
+<ul>
 <li>system_user
 <ul>
 <li>A list of all database users who have permission to access this database.</li>
