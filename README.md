@@ -4,19 +4,19 @@
 <p align="center">
 <a href="http://amarlearning.mit-license.org/"><img src="https://img.shields.io/pypi/l/pyzipcode-cli.svg" alt="mit license"></a>
 <a href="https://github.com/runninguru/MySQL-eCommerce/issues"><img src="https://camo.githubusercontent.com/926d8ca67df15de5bd1abac234c0603d94f66c00/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f636f6e747269627574696f6e732d77656c636f6d652d627269676874677265656e2e7376673f7374796c653d666c6174" alt="Issue"></a>
-<img src="http://kylebirch.info/images/build_passing.png">
+<img src="http://kylebirch.info/images/buildfailing.svg">
 </p>
 Includes scripts, functions, and procedures you will need to implement an eCommerce website without needing to reinvent the wheel.
 
 ## OK, so what can it do?
 
 <ul>
-<li>Catalog your entire inventory.</li>
-<li>Stores and automates pricing information on all products in your catalog, including base-price, seasonal pricing, discounts, etc.</li>
+<li>Catalog the items in your inventory. Does not currently store the quantity of each item or any shipping/recieving issues.</li>
+<li>Stores and automatically tracks pricing information on all products in your catalog, including base-price, seasonal pricing, discounts, etc.</li>
 <li>Maintain information on all website users, including account information, credit cards, billing & shipping addresses, contact information, etc.</li>
-<li>This db is only designed for use in the USA (and the US Dollar). This is not designed to support international currency or international law. If you want to get it to work in a different country/currency, you are free to create a fork of this project. Remember to follow all appropriate regulations and laws on transactions and record-keeping.</li>
-<li>No 'group accounts', or in other words, it's designed for one account per person.</li>
-<li>Not currently designed for full inventory management: i.e., inventory levels, sales, orders, and deliveries. It currently tracks which products are available as well as each transaction the product is purchased in.</li>
+<li>This db is only designed for use in the USA (and the US Dollar). This is not designed to support international currency or international law. If you want to get it to work in a different country/currency, you are free to create a fork of this project.</li>
+<li>No 'group accounts', or in other words, it's designed for one account per person. If you peruse the code, you will notice that it does include some code that will be used to implement this in future releases.</li>
+<li>Not currently designed for full inventory/shipping management: i.e., inventory levels, orders, and deliveries. It currently tracks which products are available as well as each transaction the product is purchased in. </li>
 </ul>
 
 
@@ -24,11 +24,12 @@ Includes scripts, functions, and procedures you will need to implement an eComme
 
 <ul>
 <li>Fully integrated Inventory Management tracking, including inventory levels, orders, sales, and deliveries.</li>
-<li>Support for tax-exempt entities, as well as 'group accounts' or other entities, rather than just 'individual accounts'.</li>
+<li>Support for tax-exempt entities, as well as 'group accounts' or other entities, rather than just 'individual' (single-person) accounts.</li>
+<li>tracking & managing product returns & refunds</li>
 </ul>
 
-## Tables
-as you can notice, any table ending in '_type' is a lookup table used to ensure valid input into the associated foreign-key-constrained column. Also, 'city', 'state', and 'postal_code' are lookup tables.
+## Table Descriptions
+as you can notice, any table ending in '_type' is a lookup table used to ensure valid input into the associated foreign-key-constrained column. Also, 'city', 'state', and 'postal_code' are basically lookup tables.
 
 <ul>
 <li>system_user
