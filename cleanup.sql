@@ -1,5 +1,4 @@
 -- Drop tables, views, and referential constraints from the database.
--- Provide a log file debugging statement.
 SELECT 'DROP PROCEDURE IF EXISTS dropForeignKeys';
 
 -- Conditionally drop the procedure.
