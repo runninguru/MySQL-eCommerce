@@ -1,22 +1,23 @@
--- --------------------------------------------------------------------------------
+ -- --------------------------------------------------------------------------------
 --  Program Name:   create_mysql_store_ri.sql
 --  Creation Date:  March-2017
 -- --------------------------------------------------------------------------------
 -- Open log file.
-TEE create_mysql_store.txt
+-- mysql workbench doesn't like TEE
+-- TEE create_mysql_store.txt
 
 -- This enables dropping tables with foreign key dependencies.
 -- It is specific to the InnoDB Engine.
 SET FOREIGN_KEY_CHECKS = 0; 
 
 -- Conditionally drop objects.
-SELECT 'SYSTEM_USER' AS "Drop Table";
+SELECT 'SYSTEM_USER' AS 'Drop Table';
 DROP TABLE IF EXISTS system_user;
 
 -- ------------------------------------------------------------------
 -- Create SYSTEM_USER table.
 -- ------------------------------------------------------------------
-SELECT 'SYSTEM_USER' AS "Create Table";
+SELECT 'SYSTEM_USER' AS 'Create Table';
 
 CREATE TABLE system_user
 ( system_user_id              INT UNSIGNED PRIMARY KEY AUTO_INCREMENT
@@ -41,12 +42,12 @@ ALTER TABLE system_user AUTO_INCREMENT = 1001;
 
 
 -- Conditionally drop objects.
-SELECT 'SYSTEM_USER_TYPE' AS "Drop Table";
+SELECT 'SYSTEM_USER_TYPE' AS 'Drop Table';
 DROP TABLE IF EXISTS system_user_type;
 
 CREATE TABLE system_user_type
 ( system_user_type_id			INT UNSIGNED 	PRIMARY KEY AUTO_INCREMENT
-, system_user_type 				CHAR(30) 		NOT NULL
+, system_user_type 				CHAR(30)	NOT NULL
 , created_by                  	INT UNSIGNED 	NOT NULL
 , creation_date               	DATE         	NOT NULL
 , last_updated_by             	INT UNSIGNED 	NOT NULL
@@ -67,7 +68,7 @@ INSERT INTO system_user_type
 , created_by
 , creation_date
 , last_updated_by
-, last_update_date
+, last_update_date)
 VALUES
 ('database administrator', 1, UTC_DATE(), 1, UTC_DATE());
 
@@ -76,7 +77,7 @@ INSERT INTO system_user_type
 , created_by
 , creation_date
 , last_updated_by
-, last_update_date
+, last_update_date)
 VALUES
 ('database developer', 1, UTC_DATE(), 1, UTC_DATE());
 
@@ -98,23 +99,23 @@ VALUES
 , UTC_DATE());
 
 -- Conditionally drop objects.
-SELECT 'account' AS "Drop Table";
+SELECT 'account' AS 'Drop Table';
 DROP TABLE IF EXISTS account;
 
 -- ------------------------------------------------------------------
 -- Create ACCOUNT table.
 -- ------------------------------------------------------------------
-SELECT 'account' AS "Create Table";
+SELECT 'account' AS 'Create Table';
 
 CREATE TABLE account
-( account_id                   	INT UNSIGNED PRIMARY KEY AUTO_INCREMENT
-, account_type                 	INT UNSIGNED
-, account_number              	CHAR(10)     NOT NULL
-, password 						INT UNSIGNED NOT NULL
-, created_by                  	INT UNSIGNED NOT NULL
-, creation_date               	DATE         NOT NULL
-, last_updated_by             	INT UNSIGNED NOT NULL
-, last_update_date            	DATE         NOT NULL
+( account_id           	   		INT UNSIGNED PRIMARY KEY AUTO_INCREMENT
+, account_type               	INT UNSIGNED
+, account_number         	CHAR(10)     			NOT NULL
+, password 						INT UNSIGNED 		NOT NULL
+, created_by                  	INT UNSIGNED 		NOT NULL
+, creation_date               	DATE         				NOT NULL
+, last_updated_by            INT UNSIGNED 		NOT NULL
+, last_update_date           DATE         				NOT NULL
 , KEY account_fk1 (account_type)
 , CONSTRAINT account_fk1 FOREIGN KEY (account_type) REFERENCES account_type (account_type_id)
 , KEY account_fk2 (created_by)
@@ -127,22 +128,22 @@ ALTER TABLE account AUTO_INCREMENT = 1001;
 
 
 -- Conditionally drop objects.
-SELECT 'account_type' AS "Drop Table";
+SELECT 'account_type' AS 'Drop Table';
 DROP TABLE IF EXISTS account_type;
 
 SELECT 'account_type' AS 'create_table';
 
 CREATE TABLE account_type
 ( account_type_id 				INT UNSIGNED PRIMARY KEY AUTO_INCREMENT
-, account_type 					INT UNSIGNED
-, created_by                  	INT UNSIGNED NOT NULL
-, creation_date               	DATE         NOT NULL
-, last_updated_by             	INT UNSIGNED NOT NULL
-, last_update_date            	DATE         NOT NULL
-, KEY account_fk1 (created_by)
-, CONSTRAINT account_fk1 FOREIGN KEY (created_by) REFERENCES system_user (system_user_id)
-, KEY account_fk2 (last_updated_by)
-, CONSTRAINT account_fk2 FOREIGN KEY (last_updated_by) REFERENCES system_user (system_user_id)
+, account_type 					CHAR(30) 			NOT NULL
+, created_by                  		INT UNSIGNED 	NOT NULL
+, creation_date               		DATE         			NOT NULL
+, last_updated_by             	INT UNSIGNED 	NOT NULL
+, last_update_date            	DATE         			NOT NULL
+, KEY account_type_fk1 (created_by)
+, CONSTRAINT account_type_fk1 FOREIGN KEY (created_by) REFERENCES system_user (system_user_id)
+, KEY account_type_fk2 (last_updated_by)
+, CONSTRAINT account_type_fk2 FOREIGN KEY (last_updated_by) REFERENCES system_user (system_user_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 ALTER TABLE account_type AUTO_INCREMENT = 1001;
@@ -154,7 +155,7 @@ INSERT INTO account_type
 , created_by
 , creation_date
 , last_updated_by
-, last_update_date
+, last_update_date)
 VALUES
 ('administrator', 1, UTC_DATE(), 1, UTC_DATE());
 
@@ -163,32 +164,50 @@ INSERT INTO account_type
 , created_by
 , creation_date
 , last_updated_by
-, last_update_date
+, last_update_date)
 VALUES
 ('user', 1, UTC_DATE(), 1, UTC_DATE());
 
+INSERT INTO account_type
+( account_type 
+, created_by
+, creation_date
+, last_updated_by
+, last_update_date)
+VALUES
+('group', 1, UTC_DATE(), 1, UTC_DATE());
+
+INSERT INTO account_type
+( account_type 
+, created_by
+, creation_date
+, last_updated_by
+, last_update_date)
+VALUES
+('individual', 1, UTC_DATE(), 1, UTC_DATE());
+
 -- Conditionally drop objects.
-SELECT 'CONTACT' AS "Drop Table";
+SELECT 'CONTACT' AS 'Drop Table';
 DROP TABLE IF EXISTS contact;
 
 -- ------------------------------------------------------------------
 -- Create CONTACT table.
 -- ------------------------------------------------------------------
-SELECT 'CONTACT' AS "Create Table";
+SELECT 'CONTACT' AS 'Create Table';
 
 CREATE TABLE contact
-( contact_id                  INT UNSIGNED PRIMARY KEY AUTO_INCREMENT
-, account_id                   INT UNSIGNED NOT NULL
-, contact_type                INT UNSIGNED 
-, email 						CHAR(30)	NOT NULL
-, first_name                  CHAR(30)     NOT NULL
-, middle_name                 CHAR(30)
-, last_name                   CHAR(30)     NOT NULL
-, telephone_id 					CHAR(20) 	NOT NULL
-, created_by                  INT UNSIGNED NOT NULL
-, creation_date               DATE         NOT NULL
-, last_updated_by             INT UNSIGNED NOT NULL
-, last_update_date            DATE         NOT NULL
+( contact_id                  	INT UNSIGNED PRIMARY KEY AUTO_INCREMENT
+, account_id                   	INT UNSIGNED 	NOT NULL
+, contact_type                	INT UNSIGNED 
+, email 							CHAR(30)			NOT NULL
+, first_name                  	CHAR(30)     		NOT NULL
+, middle_name               	CHAR(30)	
+, last_name                   	CHAR(30)     		NOT NULL
+, telephone_id 				INT UNSIGNED 	NOT NULL
+, created_by                  	INT UNSIGNED 	NOT NULL
+, creation_date               	DATE         			NOT NULL
+, last_updated_by            INT UNSIGNED NOT NULL
+, last_update_date           DATE         			NOT NULL
 , KEY contact_fk1 (account_id)
 , CONSTRAINT contact_fk1 FOREIGN KEY (account_id) REFERENCES account (account_id)
 , KEY contact_fk2 (contact_type)
@@ -205,18 +224,18 @@ ALTER TABLE contact AUTO_INCREMENT = 1001;
 
 
 -- Conditionally drop objects.
-SELECT 'contact_type' AS "Drop Table";
+SELECT 'contact_type' AS 'Drop Table';
 DROP TABLE IF EXISTS contact_type;
 
 SELECT 'contact_type' AS 'CREATE TABLE';
 
 CREATE TABLE contact_type
 ( contact_type_id 				INT UNSIGNED PRIMARY KEY AUTO_INCREMENT
-, contact_type 					INT UNSIGNED
-, created_by                  	INT UNSIGNED NOT NULL
-, creation_date               	DATE         NOT NULL
-, last_updated_by             	INT UNSIGNED NOT NULL
-, last_update_date            	DATE         NOT NULL
+, contact_type 						CHAR(30)				NOT NULL
+, created_by                  		INT UNSIGNED 		NOT NULL
+, creation_date               		DATE         				NOT NULL
+, last_updated_by             	INT UNSIGNED 		NOT NULL
+, last_update_date            	DATE         				NOT NULL
 , KEY contact_type_fk1 (created_by)
 , CONSTRAINT contact_type_fk1 FOREIGN KEY (created_by) REFERENCES system_user (system_user_id)
 , KEY contact_type_fk2 (last_updated_by)
@@ -227,19 +246,20 @@ ALTER TABLE contact_type AUTO_INCREMENT = 1001;
 
 
 -- Conditionally drop objects.
-SELECT 'telephone' AS "Drop Table";
-DROP TABLE IF EXISTS telephone_type;
+SELECT 'telephone' AS 'Drop Table';
+DROP TABLE IF EXISTS telephone;
 
 SELECT 'telephone' AS 'create table';
 
 CREATE TABLE telephone
 ( telephone_id 					INT UNSIGNED PRIMARY KEY AUTO_INCREMENT
-, area_code 					INT UNSIGNED	NOT NULL
-, telephone_number 				INT UNSIGNED	NOT NULL
-, telephone_type 				INT UNSIGNED	NOT NULL
-, creation_date               	DATE         	NOT NULL
-, last_updated_by             	INT UNSIGNED 	NOT NULL
-, last_update_date            	DATE         	NOT NULL
+, area_code 						CHAR(3)					NOT NULL
+, telephone_number 			CHAR(20)				NOT NULL
+, telephone_type 				INT UNSIGNED		NOT NULL
+, created_by                  		INT UNSIGNED 		NOT NULL
+, creation_date               		DATE         				NOT NULL
+, last_updated_by             	INT UNSIGNED 		NOT NULL
+, last_update_date            	DATE         				NOT NULL
 , KEY telephone_fk1 (telephone_type)
 , CONSTRAINT telephone_fk1 FOREIGN KEY (telephone_type) REFERENCES telephone_type (telephone_type_id)
 , KEY telephone_fk2 (created_by)
@@ -252,18 +272,18 @@ ALTER TABLE telephone AUTO_INCREMENT = 1001;
 
 
 -- Conditionally drop objects.
-SELECT 'telephone_type' AS "Drop Table";
+SELECT 'telephone_type' AS 'Drop Table';
 DROP TABLE IF EXISTS telephone_type;
 
 SELECT 'telephone_type' AS 'create table';
 
 CREATE TABLE telephone_type
 ( telephone_type_id 			INT UNSIGNED PRIMARY KEY AUTO_INCREMENT
-, telephone_type 				INT UNSIGNED	NOT NULL
-, created_by                  	INT UNSIGNED 	NOT NULL
-, creation_date               	DATE         	NOT NULL
+, telephone_type 				CHAR(30)			NOT NULL
+, created_by                  		INT UNSIGNED 	NOT NULL
+, creation_date               		DATE         			NOT NULL
 , last_updated_by             	INT UNSIGNED 	NOT NULL
-, last_update_date            	DATE         	NOT NULL
+, last_update_date            	DATE         			NOT NULL
 , KEY telephone_type_fk1 (created_by)
 , CONSTRAINT telephone_type_fk1 FOREIGN KEY (created_by) REFERENCES system_user (system_user_id)
 , KEY telephone_type_fk2 (last_updated_by)
@@ -274,22 +294,22 @@ ALTER TABLE telephone_type AUTO_INCREMENT = 1001;
 
 
 -- Conditionally drop objects.
-SELECT 'credit_card' AS "Drop Table";
+SELECT 'credit_card' AS 'Drop Table';
 DROP TABLE IF EXISTS credit_card;
 
 SELECT 'credit_card' AS 'create table';
 
 CREATE TABLE credit_card
 ( credit_card_id 				INT UNSIGNED PRIMARY KEY AUTO_INCREMENT
-, account_id 					INT UNSIGNED 	NOT NULL
-, credit_card_number 			INT UNSIGNED 	NOT NULL
-, credit_card_type 				INT UNSIGNED 	NOT NULL
-, expiration_date 				DATE 		 	NOT NULL
-, cvv 							INT UNSIGNED
-, created_by                  	INT UNSIGNED 	NOT NULL
-, creation_date               	DATE         	NOT NULL
-, last_updated_by             	INT UNSIGNED 	NOT NULL
-, last_update_date            	DATE         	NOT NULL
+, account_id 					INT UNSIGNED 		NOT NULL
+, credit_card_number 		CHAR(16)		 		NOT NULL
+, credit_card_type 			INT UNSIGNED 		NOT NULL
+, expiration_date 			DATE 		 				NOT NULL
+, cvv 								CHAR(6)
+, created_by                  	INT UNSIGNED 		NOT NULL
+, creation_date               	DATE         				NOT NULL
+, last_updated_by			INT UNSIGNED 		NOT NULL
+, last_update_date			DATE         				NOT NULL
 , KEY credit_card_fk1 (account_id)
 , CONSTRAINT credit_card_fk1 FOREIGN KEY (account_id) REFERENCES account (account_id)
 , KEY credit_card_fk2 (credit_card_type)
@@ -304,18 +324,18 @@ ALTER TABLE credit_card AUTO_INCREMENT = 1001;
 
 
 -- Conditionally drop objects.
-SELECT 'credit_card_type' AS "Drop Table";
+SELECT 'credit_card_type' AS 'Drop Table';
 DROP TABLE IF EXISTS credit_card_type;
 
 SELECT 'credit_card_type' AS 'create table';
 
 CREATE TABLE credit_card_type
 ( credit_card_type_id 			INT UNSIGNED PRIMARY KEY AUTO_INCREMENT
-, credit_card_type 				INT UNSIGNED	NOT NULL
-, created_by                  	INT UNSIGNED 	NOT NULL
-, creation_date               	DATE         	NOT NULL
+, credit_card_type 				CHAR(30)			NOT NULL
+, created_by                  		INT UNSIGNED 	NOT NULL
+, creation_date               		DATE         			NOT NULL
 , last_updated_by             	INT UNSIGNED 	NOT NULL
-, last_update_date            	DATE         	NOT NULL
+, last_update_date            	DATE         			NOT NULL
 , KEY credit_card_type_fk1 (created_by)
 , CONSTRAINT credit_card_type_fk1 FOREIGN KEY (created_by) REFERENCES system_user (system_user_id)
 , KEY credit_card_type_fk2 (last_updated_by)
@@ -326,22 +346,22 @@ ALTER TABLE credit_card_type AUTO_INCREMENT = 1001;
 
 -- create address table
 -- Conditionally drop objects.
-SELECT 'address' AS "Drop Table";
+SELECT 'address' AS 'Drop Table';
 DROP TABLE IF EXISTS address;
 
 SELECT 'address' AS 'create table';
 
 CREATE TABLE address
-( address_id		 			INT UNSIGNED PRIMARY KEY AUTO_INCREMENT
-, address_type	 				INT UNSIGNED
-, account_id 					INT UNSIGNED	NOT NULL
-, street_address 				CHAR(50) 		NOT NULL
-, city_state_id 				INT UNSIGNED 	NOT NULL
-, postal_code_id 				INT UNSIGNED 	NOT NULL
-, created_by                  	INT UNSIGNED 	NOT NULL
-, creation_date               	DATE         	NOT NULL
-, last_updated_by             	INT UNSIGNED 	NOT NULL
-, last_update_date            	DATE         	NOT NULL
+( address_id				INT UNSIGNED PRIMARY KEY AUTO_INCREMENT
+, address_type	 		INT UNSIGNED
+, account_id 				INT UNSIGNED		NOT NULL
+, street_address 			CHAR(50) 				NOT NULL
+, city_state_id				INT UNSIGNED 		NOT NULL
+, postal_code_id			INT UNSIGNED 		NOT NULL
+, created_by				INT UNSIGNED 		NOT NULL
+, creation_date			DATE         				NOT NULL
+, last_updated_by		INT UNSIGNED 		NOT NULL
+, last_update_date		DATE         				NOT NULL
 , KEY address_fk1 (address_type)
 , CONSTRAINT address_fk1 FOREIGN KEY (address_type) REFERENCES address_type (address_type_id)
 , KEY address_fk2 (account_id)
@@ -360,18 +380,18 @@ ALTER TABLE address AUTO_INCREMENT = 1001;
 
 -- create address_type table
 -- Conditionally drop objects.
-SELECT 'address_type' AS "Drop Table";
+SELECT 'address_type' AS 'Drop Table';
 DROP TABLE IF EXISTS address_type;
 
 SELECT 'address_type' AS 'create table';
 
 CREATE TABLE address_type
-( address_type_id	 			INT UNSIGNED PRIMARY KEY AUTO_INCREMENT
-, address_type 					INT UNSIGNED
-, created_by                  	INT UNSIGNED 	NOT NULL
-, creation_date               	DATE         	NOT NULL
-, last_updated_by             	INT UNSIGNED 	NOT NULL
-, last_update_date            	DATE         	NOT NULL
+( address_type_id	 		INT UNSIGNED PRIMARY KEY AUTO_INCREMENT
+, address_type 				INT UNSIGNED
+, created_by                  	INT UNSIGNED 		NOT NULL
+, creation_date               	DATE         				NOT NULL
+, last_updated_by 			INT UNSIGNED 		NOT NULL
+, last_update_date    		DATE         				NOT NULL
 , KEY address_type_fk1 (created_by)
 , CONSTRAINT address_type_fk1 FOREIGN KEY (created_by) REFERENCES system_user (system_user_id)
 , KEY address_type_fk2 (last_updated_by)
@@ -382,18 +402,18 @@ ALTER TABLE address_type AUTO_INCREMENT = 1001;
 
 -- create city table
 -- Conditionally drop objects.
-SELECT 'city' AS "Drop Table";
+SELECT 'city' AS 'Drop Table';
 DROP TABLE IF EXISTS city;
 
 SELECT 'city' AS 'create table';
 
 CREATE TABLE city
 ( city_id 						INT UNSIGNED 	PRIMARY KEY AUTO_INCREMENT
-, city 							INT UNSIGNED
-, created_by                  	INT UNSIGNED 	NOT NULL
-, creation_date               	DATE         	NOT NULL
-, last_updated_by             	INT UNSIGNED 	NOT NULL
-, last_update_date            	DATE         	NOT NULL
+, city 							CHAR(200)				NOT NULL
+, created_by				INT UNSIGNED 		NOT NULL
+, creation_date           	DATE         				NOT NULL
+, last_updated_by        INT UNSIGNED 		NOT NULL
+, last_update_date       DATE         				NOT NULL
 , KEY city_fk1 (created_by)
 , CONSTRAINT city_fk1 FOREIGN KEY (created_by) REFERENCES system_user (system_user_id)
 , KEY city_fk2 (last_updated_by)
@@ -404,18 +424,18 @@ ALTER TABLE city AUTO_INCREMENT = 1001;
 
 -- create state table
 -- Conditionally drop objects.
-SELECT 'state' AS "Drop Table";
+SELECT 'state' AS 'Drop Table';
 DROP TABLE IF EXISTS state;
 
 SELECT 'state' AS 'create table';
 
 CREATE TABLE state
-( state_id 						INT UNSIGNED PRIMARY KEY AUTO_INCREMENT
+( state_id 				INT UNSIGNED PRIMARY KEY AUTO_INCREMENT
 , state 						INT UNSIGNED
-, created_by                  	INT UNSIGNED 	NOT NULL
-, creation_date               	DATE         	NOT NULL
-, last_updated_by             	INT UNSIGNED 	NOT NULL
-, last_update_date            	DATE         	NOT NULL
+, created_by     		INT UNSIGNED 		NOT NULL
+, creation_date    	DATE         				NOT NULL
+, last_updated_by	INT UNSIGNED 		NOT NULL
+, last_update_date	DATE         				NOT NULL
 , KEY state_fk1 (created_by)
 , CONSTRAINT state_fk1 FOREIGN KEY (created_by) REFERENCES system_user (system_user_id)
 , KEY state_fk2 (last_updated_by)
@@ -426,19 +446,19 @@ ALTER TABLE state AUTO_INCREMENT = 1001;
 
 -- create city_state table
 -- Conditionally drop objects.
-SELECT 'city_state' AS "Drop Table";
+SELECT 'city_state' AS 'Drop Table';
 DROP TABLE IF EXISTS city_state;
 
 SELECT 'city_state' AS 'create table';
 
 CREATE TABLE city_state
 ( city_state_id 				INT UNSIGNED 	PRIMARY KEY AUTO_INCREMENT
-, city_id 						INT UNSIGNED 	NOT NULL
-, state_id 						INT UNSIGNED 	NOT NULL
-, created_by                  	INT UNSIGNED 	NOT NULL
-, creation_date               	DATE         	NOT NULL
-, last_updated_by             	INT UNSIGNED 	NOT NULL
-, last_update_date            	DATE         	NOT NULL
+, city_id 						INT UNSIGNED 		NOT NULL
+, state_id 					INT UNSIGNED 		NOT NULL
+, created_by          		INT UNSIGNED 		NOT NULL
+, creation_date      		DATE         				NOT NULL
+, last_updated_by    	INT UNSIGNED 		NOT NULL
+, last_update_date    	DATE         				NOT NULL
 , KEY city_state_fk1 (city_id)
 , CONSTRAINT city_state_fk1 FOREIGN KEY (city_id) REFERENCES city (city_id)
 , KEY city_state_fk2 (state_id)
@@ -458,12 +478,12 @@ DROP TABLE IF EXISTS postal_code;
 SELECT 'postal_code' AS 'create table';
 
 CREATE TABLE postal_code
-( postal_code_id 				INT UNSIGNED 	PRIMARY KEY AUTO_INCREMENT
-, postal_code 					INT UNSIGNED 	NOT NULL
-, created_by                  	INT UNSIGNED 	NOT NULL
-, creation_date               	DATE         	NOT NULL
-, last_updated_by             	INT UNSIGNED 	NOT NULL
-, last_update_date            	DATE         	NOT NULL
+( postal_code_id 			INT UNSIGNED 	PRIMARY KEY AUTO_INCREMENT
+, postal_code 				INT UNSIGNED 		NOT NULL
+, created_by      			INT UNSIGNED 		NOT NULL
+, creation_date    		DATE         				NOT NULL
+, last_updated_by  		INT UNSIGNED 		NOT NULL
+, last_update_date   	DATE         				NOT NULL
 , KEY postal_code_fk1 (created_by)
 , CONSTRAINT postal_code_fk1 FOREIGN KEY (created_by) REFERENCES system_user (system_user_id)
 , KEY postal_code_fk2 (last_updated_by)
@@ -473,35 +493,6 @@ CREATE TABLE postal_code
 ALTER TABLE postal_code AUTO_INCREMENT = 1001;
 
 
--- create item table
-SELECT 'item' AS 'Drop Table';
-DROP TABLE IF EXISTS item;
-
-SELECT 'item' AS 'create table';
-
-CREATE TABLE item
-( item_id 						INT UNSIGNED PRIMARY KEY AUTO_INCREMENT
-, item_title 					CHAR(255) 		NOT NULL
-, item_subtitle 				CHAR(255) 
-, item_category_id 				INT UNSIGNED	NOT NULL
-, item_subcategory_id 			INT UNSIGNED 	NOT NULL
-, created_by                  	INT UNSIGNED 	NOT NULL
-, creation_date               	DATE         	NOT NULL
-, last_updated_by             	INT UNSIGNED 	NOT NULL
-, last_update_date            	DATE         	NOT NULL
-, KEY item_fk1 (item_category_id)
-, CONSTRAINT item_fk1 FOREIGN KEY (item_category_id) REFERENCES item_category (item_category_id)
-, KEY item_fk2 (item_subcategory_id)
-, CONSTRAINT item_fk2 FOREIGN KEY (item_subcategory_id) REFERENCES item_category (item_subcategory_id)
-, KEY item_fk3 (created_by)
-, CONSTRAINT item_fk3 FOREIGN KEY (created_by) REFERENCES system_user (system_user_id)
-, KEY item_fk4 (last_updated_by)
-, CONSTRAINT item_fk4 FOREIGN KEY (last_updated_by) REFERENCES system_user (system_user_id)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-ALTER TABLE item AUTO_INCREMENT = 1001;
-
-
 -- create item_category table
 SELECT 'item_category' AS 'Drop Table';
 DROP TABLE IF EXISTS item_category;
@@ -509,12 +500,12 @@ DROP TABLE IF EXISTS item_category;
 SELECT 'item_category' AS 'create table';
 
 CREATE TABLE item_category
-( item_category_id 				INT UNSIGNED PRIMARY KEY AUTO_INCREMENT
-, item_category 				CHAR(50)		NOT NULL
-, created_by                  	INT UNSIGNED 	NOT NULL
-, creation_date               	DATE         	NOT NULL
-, last_updated_by             	INT UNSIGNED 	NOT NULL
-, last_update_date            	DATE         	NOT NULL
+( item_category_id 			INT UNSIGNED PRIMARY KEY AUTO_INCREMENT
+, item_category 				CHAR(50)				NOT NULL
+, created_by        			INT UNSIGNED 		NOT NULL
+, creation_date      			DATE         				NOT NULL
+, last_updated_by    		INT UNSIGNED 		NOT NULL
+, last_update_date  		DATE         				NOT NULL
 , KEY item_category_fk1 (created_by)
 , CONSTRAINT item_category_fk1 FOREIGN KEY (created_by) REFERENCES system_user (system_user_id)
 , KEY item_category_fk2 (last_updated_by)
@@ -531,13 +522,13 @@ DROP TABLE IF EXISTS item_subcategory;
 SELECT 'item_subcategory' AS 'create table';
 
 CREATE TABLE item_subcategory
-( item_subcategory_id 			INT UNSIGNED PRIMARY KEY AUTO_INCREMENT
-, category_id 					INT UNSIGNED 	NOT NULL
-, item_subcategory 				CHAR(50)		NOT NULL
-, created_by                  	INT UNSIGNED 	NOT NULL
-, creation_date               	DATE         	NOT NULL
-, last_updated_by             	INT UNSIGNED 	NOT NULL
-, last_update_date            	DATE         	NOT NULL
+( item_subcategory_id 	INT UNSIGNED PRIMARY KEY AUTO_INCREMENT
+, category_id 					INT UNSIGNED 		NOT NULL
+, item_subcategory 			CHAR(50)				NOT NULL
+, created_by                  	INT UNSIGNED 		NOT NULL
+, creation_date               	DATE         				NOT NULL
+, last_updated_by   			INT UNSIGNED 		NOT NULL
+, last_update_date    		DATE         				NOT NULL
 , KEY item_subcategory_fk1 (category_id)
 , CONSTRAINT item_subcategory_fk1 FOREIGN KEY (category_id) REFERENCES item_category (item_category_id)
 , KEY item_subcategory_fk2 (created_by)
@@ -548,6 +539,38 @@ CREATE TABLE item_subcategory
 
 ALTER TABLE item_subcategory AUTO_INCREMENT = 1001;
 
+
+
+-- create item table
+SELECT 'item' AS 'Drop Table';
+DROP TABLE IF EXISTS item;
+
+SELECT 'item' AS 'create table';
+
+CREATE TABLE item
+( item_id 							INT UNSIGNED PRIMARY KEY AUTO_INCREMENT
+, item_title 						CHAR(255) 			NOT NULL
+, item_subtitle 					CHAR(255) 
+, item_category_id 			INT UNSIGNED		NOT NULL
+, item_subcategory_id 	INT UNSIGNED
+, created_by                  	INT UNSIGNED
+, creation_date               	DATE         				NOT NULL
+, last_updated_by  			INT UNSIGNED 		NOT NULL
+, last_update_date 			DATE         				NOT NULL
+, KEY item_fk1 (item_category_id)
+, CONSTRAINT item_fk1 FOREIGN KEY (item_category_id) REFERENCES item_category (item_category_id)
+, KEY item_fk2 (item_subcategory_id)
+, CONSTRAINT item_fk2 FOREIGN KEY (item_subcategory_id) REFERENCES item_subcategory (item_subcategory_id)
+, KEY item_fk3 (created_by)
+, CONSTRAINT item_fk3 FOREIGN KEY (created_by) REFERENCES system_user (system_user_id)
+, KEY item_fk4 (last_updated_by)
+, CONSTRAINT item_fk4 FOREIGN KEY (last_updated_by) REFERENCES system_user (system_user_id)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+ALTER TABLE item AUTO_INCREMENT = 1001;
+
+
+
 -- Create transaction Table
 SELECT 'transaction' AS 'drop Table';
 DROP TABLE IF EXISTS transaction;
@@ -555,15 +578,15 @@ DROP TABLE IF EXISTS transaction;
 SELECT 'transaction' AS 'create table';
 
 CREATE TABLE transaction
-( transaction_id 				INT UNSIGNED PRIMARY KEY AUTO_INCREMENT
-, account_id 					INT UNSIGNED 	NOT NULL
-, transaction_type 				INT UNSIGNED	NOT NULL
-, transaction_date 				DATE 			NOT NULL
-, amount 						INT UNSIGNED 	NOT NULL
-, created_by                  	INT UNSIGNED 	NOT NULL
-, creation_date               	DATE         	NOT NULL
-, last_updated_by             	INT UNSIGNED 	NOT NULL
-, last_update_date            	DATE         	NOT NULL
+( transaction_id 			INT UNSIGNED PRIMARY KEY AUTO_INCREMENT
+, account_id 				INT UNSIGNED 		NOT NULL
+, transaction_type 		INT UNSIGNED
+, transaction_date 		DATE 						NOT NULL
+, amount 						INT UNSIGNED 		NOT NULL
+, created_by           		INT UNSIGNED 		NOT NULL
+, creation_date     		DATE         				NOT NULL
+, last_updated_by      	INT UNSIGNED 		NOT NULL
+, last_update_date     	DATE         				NOT NULL
 , KEY transaction_fk1 (account_id)
 , CONSTRAINT transaction_fk1 FOREIGN KEY (account_id) REFERENCES account (account_id)
 , KEY transaction_fk2 (transaction_type)
@@ -584,12 +607,12 @@ DROP TABLE IF EXISTS transaction_type;
 SELECT 'transaction_type' AS 'create table';
 
 CREATE TABLE transaction_type
-( transaction_type_id 			INT UNSIGNED 	PRIMARY KEY AUTO_INCREMENT
-, transaction_type 				CHAR(50) 		NOT NULL
-, created_by 					INT UNSIGNED	NOT NULL
-, creation_date               	DATE         	NOT NULL
-, last_updated_by             	INT UNSIGNED 	NOT NULL
-, last_update_date            	DATE         	NOT NULL
+( transaction_type_id 		INT UNSIGNED 	PRIMARY KEY AUTO_INCREMENT
+, transaction_type 			CHAR(50) 				NOT NULL
+, created_by 					INT UNSIGNED		NOT NULL
+, creation_date       			DATE         				NOT NULL
+, last_updated_by     		INT UNSIGNED 		NOT NULL
+, last_update_date       	DATE         				NOT NULL
 , KEY transaction_type_fk1 (created_by)
 , CONSTRAINT transaction_type_fk1 FOREIGN KEY (created_by) REFERENCES system_user (system_user_id)
 , KEY transaction_type_fk2 (last_updated_by)
@@ -606,13 +629,13 @@ DROP TABLE IF EXISTS transaction_item;
 SELECT 'transaction_item' AS 'create table';
 
 CREATE TABLE transaction_item
-( transaction_item_id 			INT UNSIGNED 	PRIMARY KEY AUTO_INCREMENT
-, transaction_id 				CHAR(50) 		NOT NULL
-, item_id 						INT UNSIGNED 	NOT NULL
-, created_by 					INT UNSIGNED	NOT NULL
-, creation_date               	DATE         	NOT NULL
-, last_updated_by             	INT UNSIGNED 	NOT NULL
-, last_update_date            	DATE         	NOT NULL
+( transaction_item_id 		INT UNSIGNED 	PRIMARY KEY AUTO_INCREMENT
+, transaction_id 				INT UNSIGNED 		NOT NULL
+, item_id 							INT UNSIGNED 		NOT NULL
+, created_by 					INT UNSIGNED		NOT NULL
+, creation_date       			DATE         				NOT NULL
+, last_updated_by    		INT UNSIGNED 		NOT NULL
+, last_update_date     		DATE         				NOT NULL
 , KEY transaction_item_fk1 (transaction_id)
 , CONSTRAINT transaction_item_fk1 FOREIGN KEY (transaction_id) REFERENCES transaction (transaction_id)
 , KEY transaction_item_fk2 (item_id)
@@ -633,17 +656,17 @@ DROP TABLE IF EXISTS price;
 SELECT 'price' AS 'create table';
 
 CREATE TABLE price
-( price_id 						INT UNSIGNED 	PRIMARY KEY AUTO_INCREMENT
-, item_id 						CHAR(50) 		NOT NULL
-, price_type 					INT UNSIGNED 	NOT NULL
-, active_flag 					text 			NOT NULL
-, start_date 					DATE 			NOT NULL
-, end_date 						DATE
-, amount 						INT UNSIGNED 	NOT NULL
-, created_by 					INT UNSIGNED	NOT NULL
-, creation_date               	DATE         	NOT NULL
-, last_updated_by             	INT UNSIGNED 	NOT NULL
-, last_update_date            	DATE         	NOT NULL
+( price_id 					INT UNSIGNED 	PRIMARY KEY AUTO_INCREMENT
+, item_id 						INT UNSIGNED 		NOT NULL
+, price_type 				INT UNSIGNED 		
+, active_flag 				TEXT 						NOT NULL
+, start_date 					DATE 						NOT NULL
+, end_date 					DATE
+, amount 						INT UNSIGNED 		NOT NULL
+, created_by 				INT UNSIGNED		NOT NULL
+, creation_date      		DATE         				NOT NULL
+, last_updated_by       	INT UNSIGNED 		NOT NULL
+, last_update_date       DATE         				NOT NULL
 , KEY price_fk1 (item_id)
 , CONSTRAINT price_fk1 FOREIGN KEY (item_id) REFERENCES item (item_id)
 , KEY price_fk2 (price_type)
@@ -664,12 +687,12 @@ DROP TABLE IF EXISTS price_type;
 SELECT 'price_type' AS 'create table';
 
 CREATE TABLE price_type
-( price_type_id 				INT UNSIGNED 	PRIMARY KEY AUTO_INCREMENT
-, price_type 					CHAR(50) 		NOT NULL
-, created_by                  	INT UNSIGNED 	NOT NULL
-, creation_date               	DATE         	NOT NULL
-, last_updated_by             	INT UNSIGNED 	NOT NULL
-, last_update_date            	DATE         	NOT NULL
+( price_type_id 			INT UNSIGNED 	PRIMARY KEY AUTO_INCREMENT
+, price_type 				CHAR(50) 				NOT NULL
+, created_by       			INT UNSIGNED 		NOT NULL
+, creation_date      		DATE         				NOT NULL
+, last_updated_by   		INT UNSIGNED 		NOT NULL
+, last_update_date   	DATE         				NOT NULL
 , KEY price_type_fk1 (created_by)
 , CONSTRAINT price_type_fk1 FOREIGN KEY (created_by) REFERENCES system_user (system_user_id)
 , KEY price_type_fk2 (last_updated_by)
@@ -684,4 +707,4 @@ COMMIT;
 SHOW TABLES;
 
 -- Close log file.
-NOTEE
+-- NOTEE
