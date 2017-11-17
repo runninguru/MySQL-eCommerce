@@ -144,6 +144,7 @@ as you can notice, any table ending in '_type' is a lookup table used to ensure 
 <ul>
 <li>Stores address information associated with accounts.</li>
 <li>A user may have 1-to-many addresses per account.</li>
+<li>This database will not constrain postal codes, cities, and states to ensure proper addresses. If a user enters the wrong address, either you can handle that ouside of the database or let the user suffer for their foolishness.</li>
 </ul>
 </li>
 
