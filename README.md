@@ -1,4 +1,4 @@
-<h1 align="center" id="urls">MySQL eCommerce Database and API</h1>
+<h1 align="center" id="urls">MySQL eCommerce Database</h1>
 <h4 align="center">Get an eCommerce database up and running quicker with a ready-made MVP (Minimum Viable Product) solution.</h4>
 
 <p align="center">
