@@ -186,7 +186,7 @@ Feel free to contribute!
 <li>A column whose name ends in '_type' shall be a foreign key reference to the lookup table with the same name.</li>
 <li>Capitalize reserved words.</li>
 <li>commas before columns.</li>
-<li>indent using tab.</li>
+<li>indent using spaces.</li>
 <li>Each table has 4 columns used to track data entry:
 
 <ul>
