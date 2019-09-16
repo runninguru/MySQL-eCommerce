@@ -15,7 +15,8 @@ Includes scripts, functions, and procedures you will need to implement an eComme
 <li>Stores and automatically tracks pricing information on all products in your catalog, including base-price, seasonal pricing, discounts, etc.</li>
 <li>Maintain information on all website users, including account information, credit cards, billing & shipping addresses, contact information, etc.</li>
 <li>This db is only designed for use in the USA (and the US Dollar). This is not designed to support international currency or international law. If you want to get it to work in a different country/currency, you are free to create a fork of this project.</li>
-<li>No 'group accounts', or in other words, it's designed for one account per person. If you peruse the code, you will notice that it does include some code that will be used to implement this in future releases. Also, i'm not trained in law by any means, so if this  database this somehow doesn't meet USA federal/state laws/regulations on computer security, privacy, finance (such as the Sarbanes-Oxley Act), or any other federal, state, or local regluation or law, I am not responsible for your misuse of it.</li>
+<li>No 'group accounts', or in other words, it's designed for one account per person. If you peruse the code, you will notice that it does include some code that will be used to implement this in future releases.</li>
+<li> Also, i'm not trained in law by any means, so if this  database this somehow doesn't meet USA federal/state laws/regulations on computer security, privacy, finance (such as the Sarbanes-Oxley Act), or any other federal, state, or local regluation or law, I am not responsible for your misuse of it.</li>
 <li>Not currently designed for full inventory/shipping management: i.e., inventory levels, orders, and deliveries. It currently tracks which products are available as well as each transaction the product is purchased in. </li>
 </ul>
 
