@@ -203,7 +203,6 @@ CREATE TABLE contact
 , first_name                  	CHAR(30)     		NOT NULL
 , middle_name               	CHAR(30)	
 , last_name                   	CHAR(30)     		NOT NULL
-, telephone_id 				INT UNSIGNED 	NOT NULL
 , created_by                  	INT UNSIGNED 	NOT NULL
 , creation_date               	DATE         			NOT NULL
 , last_updated_by            INT UNSIGNED NOT NULL
@@ -212,12 +211,10 @@ CREATE TABLE contact
 , CONSTRAINT contact_fk1 FOREIGN KEY (account_id) REFERENCES account (account_id)
 , KEY contact_fk2 (contact_type)
 , CONSTRAINT contact_fk2 FOREIGN KEY (contact_type) REFERENCES contact_type (contact_type_id)
-, KEY contact_fk3 (telephone_id)
-, CONSTRAINT contact_fk3 FOREIGN KEY (telephone_id) REFERENCES telephone (telephone_id)
-, KEY contact_fk4 (created_by)
-, CONSTRAINT contact_fk4 FOREIGN KEY (created_by) REFERENCES system_user (system_user_id)
-, KEY contact_fk5 (last_updated_by)
-, CONSTRAINT contact_fk5 FOREIGN KEY (last_updated_by) REFERENCES system_user (system_user_id)
+, KEY contact_fk3 (created_by)
+, CONSTRAINT contact_fk3 FOREIGN KEY (created_by) REFERENCES system_user (system_user_id)
+, KEY contact_fk4 (last_updated_by)
+, CONSTRAINT contact_fk4 FOREIGN KEY (last_updated_by) REFERENCES system_user (system_user_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 ALTER TABLE contact AUTO_INCREMENT = 1001;
@@ -253,19 +250,22 @@ SELECT 'telephone' AS 'create table';
 
 CREATE TABLE telephone
 ( telephone_id 					INT UNSIGNED PRIMARY KEY AUTO_INCREMENT
-, area_code 						CHAR(3)					NOT NULL
-, telephone_number 			CHAR(20)				NOT NULL
+, contact_id                    INT UNSIGNED NOT NULL
+, area_code 		            CHAR(3)	        NOT NULL
+, telephone_number 		    	CHAR(20)				NOT NULL
 , telephone_type 				INT UNSIGNED		NOT NULL
-, created_by                  		INT UNSIGNED 		NOT NULL
-, creation_date               		DATE         				NOT NULL
+, created_by                    INT UNSIGNED 		NOT NULL
+, creation_date         		DATE         				NOT NULL
 , last_updated_by             	INT UNSIGNED 		NOT NULL
 , last_update_date            	DATE         				NOT NULL
-, KEY telephone_fk1 (telephone_type)
-, CONSTRAINT telephone_fk1 FOREIGN KEY (telephone_type) REFERENCES telephone_type (telephone_type_id)
-, KEY telephone_fk2 (created_by)
-, CONSTRAINT telephone_fk2 FOREIGN KEY (created_by) REFERENCES system_user (system_user_id)
-, KEY telephone_fk3 (last_updated_by)
-, CONSTRAINT telephone_fk3 FOREIGN KEY (last_updated_by) REFERENCES system_user (system_user_id)
+, KEY telephone_fk1 (contact_id)
+, CONSTRAINT telephone_fk1 FOREIGN KEY (contact_id) REFERENCES contact (contact_id)
+, KEY telephone_fk2 (telephone_type)
+, CONSTRAINT telephone_fk2 FOREIGN KEY (telephone_type) REFERENCES telephone_type (telephone_type_id)
+, KEY telephone_fk3 (created_by)
+, CONSTRAINT telephone_fk3 FOREIGN KEY (created_by) REFERENCES system_user (system_user_id)
+, KEY telephone_fk4 (last_updated_by)
+, CONSTRAINT telephone_fk4 FOREIGN KEY (last_updated_by) REFERENCES system_user (system_user_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 ALTER TABLE telephone AUTO_INCREMENT = 1001;
