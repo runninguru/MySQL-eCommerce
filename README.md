@@ -23,6 +23,7 @@ Includes scripts, functions, and procedures you will need to implement an eComme
 ## Features I want to support in future releases
 
 <ul>
+  <li>Stored functions and procedures, which are not implemented yet.</li>
 <li>Fully integrated Inventory Management tracking, including inventory levels, orders, sales, and deliveries.</li>
 <li>Support for tax-exempt entities, as well as 'group accounts' or other entities, rather than just 'individual' (single-person) accounts.</li>
 <li>tracking & managing product returns & refunds</li>
